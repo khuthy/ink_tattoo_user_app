@@ -1,0 +1,156 @@
+<ion-content>
+
+  <div class="main animated delay-1s" [ngClass]="{'fadeIn': !showProfile1, 'slideInLeft': showProfile1}">
+
+<!-- 
+    <div class="onboarding">
+      <div class="container-onboarding">
+        <ion-fab-button class="fab-btn" color="light">
+          <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+          <ion-slides pager="true" [options]="slideOpts">
+              <ion-slide>
+                <img class="" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" height="300px" alt="">
+              </ion-slide>
+              <ion-slide>
+                  <img class="" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="">
+              </ion-slide>
+              <ion-slide>
+                  <img class="" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="">
+              </ion-slide>
+            </ion-slides>
+      </div>
+    </div>  -->
+
+
+
+    <section class="header">
+      <div class="user-header">
+          <div class="logo">
+            <ion-button class="btn-menu" (click)="addClasseAnimate()" size="large" color="light" fill="clear">
+              <ion-icon name="menu"></ion-icon>
+            </ion-button>
+            <img src="../../../assets/anotherLogo.svg" width="100px" alt="">
+          
+          </div>
+          <ul class="list">
+            <div class="wraper-list animated" [ngClass]="{'slideInDown':menu, 'tada':!menu}" >
+                <li ><a routerLink="/xplore">Explore</a></li>
+                <li><a routerLink="/contact-us">Contact Us</a></li>
+                <li *ngIf="!showProfile1" (click)="Login()" ><a>Sign In</a></li>
+                <li *ngIf="showProfile1" (click)="logOut()" ><a>Sign Out</a></li>
+                <button *ngIf="!showProfile1" class="btn-create-account riffle" (click)="CreateAccount()">Create Account</button>
+                <ion-button class="btn-close" (click)="addClasseAnimate()" color="light" fill="clear">
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </div>
+              
+              <div class="profile" *ngIf="showProfile1" routerLink="/profile"  ShowName >
+                <p class="profile-name">{{name}}</p>
+                <div class="image-profile">
+                    <img src="../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg" alt="">
+                </div>
+              </div>
+              <div class="notifation" *ngIf="showProfile1">
+                  <ion-button (click)="Notifications()"  color="light" fill="clear" size="large">
+                      <ion-icon name="notifications-outline"></ion-icon>
+                    </ion-button>
+                  <ion-badge class="badge" color="light">7</ion-badge>
+                
+                  
+              </div>
+            
+           
+          </ul>
+      </div>
+      <div class="information">
+
+         
+          <img src="../../../assets/icon/INK.svg" class="ink animated slideInDown">
+
+          <div class="info-header-palet">
+            <img src="../../../assets/anotherLogo.svg" class="logo-header animated jello" alt="">
+            <p style="color: #fff;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam deleniti molestias perspiciatis iure obcaecati veritatis hic sunt ratione harum? Quis, non. Iusto sapiente corrupti error inventore sint praesentium in. Fugit?</p>
+          </div>
+         <h1 class="explore animated slideInRight">EXPLORE</h1>
+      </div>
+
+     
+    </section>
+
+    <div class="tattoo-container">
+ <div class="tattoo">
+          <div class="header-tattoo">
+            <p>Popular Tattoos</p>
+          </div>
+          <div class="tattoo-card-container">
+                <div class="tattoo-card-list" *ngFor="let tattoo of Tattoos">
+                  <div class="tattoo-cards">
+                      <img src="../../../assets/kaizen-nguy-n-s9imzeGXKQ0-unsplash.jpg" alt="">
+                      <div class="info-tattoo">
+                        <article>
+                          <h4 style="white-space: normal; font-size: 2.8vh;">{{ tattoo.doc.name}}</h4>
+                          <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.doc.pricerange}}</p>
+                          <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.doc.description}} </p>
+                        </article>
+                      </div>
+                      <div class="booking">
+                       <ion-button fill="clear"  color="light" class="btn-book" (click)="Booking(tattoo)">Book</ion-button>
+                      </div>
+                  </div>
+                  
+                </div> 
+          </div>
+      </div>   
+      <div class="tattoo">
+        <div class="header-tattoo">
+          <p class="design">Design Tattoos</p>
+
+        </div>
+        <div class="tattoo-card-container">
+            <div class="tattoo-card-list" *ngFor="let tattoo of Sketch">
+              <div class="tattoo-cards" >
+                <img src="{{tattoo.image}}" alt="">
+                <div class="info-tattoo animated">
+                  <article>
+                    <h4 style="white-space: normal; ">{{tattoo.name}}</h4>
+                    <p style="color: rgb(48, 167, 48); font-weight: bold; text-align: center;font-size: 3vh;">{{tattoo.pricerange}}</p>
+                    <p class="description" style="white-space: normal; ;">{{tattoo.description}} </p>   
+                  </article>
+                </div> 
+                <div class="booking">
+                  <ion-button fill="clear" color="light" class="btn-book" (click)="Booking(tattoo)">Book</ion-button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+      </div> 
+      <div class="tattoo">
+        <div class="header-tattoo">
+          <p class="design">Previous Tattoos</p>
+        </div>
+        <div class="tattoo-card-container">
+            <div class="tattoo-card-list" *ngFor="let tattoo of PreviouseWork">
+              <div class="tattoo-cards previous-work">
+                <img src="{{tattoo.image}}" alt="">
+                <div class="info-tattoo">
+                  <article>
+                    <h4 style="white-space: normal;">{{ tattoo.name}}</h4>
+                    <p style="color: rgb(48, 167, 48); font-weight: bold; text-align: center;font-size: 3vh;">{{tattoo.pricerange}}</p>
+                    <p style="white-space: normal; ;">{{tattoo.description}} </p>
+                  </article>
+
+                </div> 
+                <div class="booking">
+                  <ion-button fill="clear" class="btn-book"  color="light" (click)="Booking(tattoo)">Book</ion-button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div> 
+    </div> 
+</div> 
+ 
+</ion-content> 
+

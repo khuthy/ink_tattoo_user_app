@@ -1,0 +1,7 @@
+{
+  "name": "Ink_Tatoos_User_App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

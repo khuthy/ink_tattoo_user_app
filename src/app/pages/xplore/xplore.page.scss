@@ -1,0 +1,815 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px; 
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .btn-close,
+  .btn-menu {
+      display: none;
+  }
+
+.main {
+    height: 100%;
+    width: 100%;
+    background: #f5f5ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    .onboarding {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.803);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .fab-btn {
+            position: absolute;
+            top: -10%;
+            right: 0;
+        }
+
+
+        .container-onboarding {
+            position: relative;
+            flex-basis: 50%;
+            width: 50%;
+            height: 70%;
+            background: #fff;
+            border-radius: 10px;
+
+        }
+    }
+
+    .slide-con {
+       /*  display: flex;
+        flex-direction: column; */
+        height: 100%;
+        widows: 100%;
+       /*  background: red; */
+    }
+    .image {
+        position: relative;
+        height: 40%;
+     /*    background: red; */
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+
+        }
+    }
+
+    .slider-div {
+        height: 100%;
+        widows: 100%;/* 
+        background: red; */
+        display: flex;
+       
+    }
+
+    
+    .header {
+        flex-basis: 40%;
+        width: 100%;
+        background: linear-gradient((45deg,rgba(0,0,0,0.5)50%, (rgba(0,0,0,0) 50%))), url('../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg');
+        background-position: top;
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: -1;
+
+        .user-header {
+            flex-basis: 15%;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-left: 1em;
+            padding-right: 1em;
+
+            .logo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .list {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+
+                .wraper-list  {
+                    list-style: none;
+                    
+                     display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    justify-content: center;
+                    position: relative;
+                    cursor: pointer;
+                    
+                  
+
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                        text-align: center;
+                        position: relative;
+                        
+                        display: block;
+                        padding: 1em;
+                        
+                     
+                        
+                      
+                    }
+
+
+
+                }
+                
+                li:hover a:before {
+                    position: absolute;
+                    bottom: 20%;
+                    left: 10%;
+                    transition: all 500ms;
+                    animation-name: borderIn;
+                    animation-duration: 500ms;
+                    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    animation-fill-mode: forwards;
+                    content: '';
+                    width: 80%;
+                    height: 5px;
+                    background-color: #db6c50;
+                    border-radius: 50px; 
+                    transition: all 500ms 100ms;
+                    
+                 }
+                 @keyframes borderIn {
+                     0% {
+                         width: 0%;
+                         bottom: 0%;
+                     }
+                     100% {
+                         width: 80%;
+                         bottom: 20%;
+                         
+                     }
+                 }
+            
+                .btn-create-account {
+                    background:#db6c50;
+                    padding: .5em;
+                    border-radius: 3px;
+                    text-align: center;
+                    height: 100%;
+                    color: #fff;
+                    margin-left: .5em;
+
+                }
+               
+                .profile {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  justify-content: center;
+                  
+                  p {
+                      padding-left: .5em;
+                      padding-right: 1em;
+                      color: #ddd;
+                      font-weight: bold;
+                  }
+                  .image-profile {
+                      height: 5vh;
+                      width: 5vh;
+                      border-radius: 50%;
+                      background: blue;
+                      overflow: hidden;
+
+                      img {
+                          height: 100%;
+                          width: 100%;
+                          object-fit: cover;
+                      }
+                  }
+                }
+                .notifation {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+
+                    .badge {
+                        position: absolute;
+                        top: 20%;
+                        right: 25%;
+                        padding: .2em;
+                        height: 19px;
+                        width: 19px;
+                        border-radius: 50% !important;
+                        color: #fff;
+                        background: #db6c50;
+                    }
+
+                    
+
+                
+
+                }
+
+            }
+
+        }
+        .information {
+            position: relative;
+            padding: 1em;
+            flex-basis: 85%;
+            
+           .ink {
+               position: absolute;
+               top: 0%;
+               left: -5%;
+               height: 100%;
+               width: 30%;
+              
+           }
+           .explore {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+           
+            font-size: 100px;
+            color: rgba(219, 108, 80, 0.162);
+            margin: 0 !important;
+            font-weight: bold;
+            
+        }
+           .info-header-palet {
+               //border: 1px solid red;
+               display: flex;
+               position: relative;
+               z-index: 1;
+              /*  justify-content: center; */
+               align-items: flex-start;
+               flex-direction: column;
+               justify-content: space-evenly;
+                height: 100%;
+                width: 90%;
+                margin: 0 auto;
+                padding: 0;
+            .logo-header {
+                flex-basis: 30%;
+                height: 30%;
+            }
+            p {
+                width: 60%;
+            }
+
+            
+
+           
+
+           }
+           @media only screen and(max-width: 600px){
+            .info-header-palet p {
+             width: 100%;
+            }
+            .info-header-palet {
+                justify-content: flex-start;
+                align-items: flex-start;
+                z-index: -1;
+            }
+         }
+         .logo img {
+             display: none;
+         }
+        }             
+          
+         
+
+   
+    }
+    @media only screen and (max-width: 600px) {
+        .header {
+            flex-basis: 20%;
+            .user-header {
+                padding: .1em;
+               /*  flex-direction: column;
+                align-items: flex-start; */
+                .list {
+                   /*   flex-direction: column;
+                    align-items: flex-start;
+                    position: relative;  */
+                   
+                   .profile {
+                         display: none;    
+                    }
+                    .profile {
+                        margin-right: 1em;
+                       /*  align-self: flex-end; */
+                        .profile-image {
+                            height: 7vh;
+                            width: 7vh;
+                            background: red;
+                            
+                        }
+                    }
+                    .wraper-list {
+                        display: none;
+                    }
+
+                    .dropped {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: auto;
+                        z-index: 100000;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        background: black;
+                        padding: 1em;
+                        display: none;
+
+                        .btn-close {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                        }
+
+                        
+                    }
+                    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+                        .wraper-lis {
+                          -webkit-backdrop-filter: blur(10px);
+                          backdrop-filter: blur(10px);
+                          background: rgba(85, 85, 85, 0.5); 
+                        }
+                    
+                      }
+                }
+              
+            }
+            .btn-close,
+            .btn-menu {
+                display: block;
+            }
+            /* .information {
+                .logo {
+                    height: 100%;
+                    position: absolute;
+                    width: 10%;
+                    top: 0;
+                    left: 0;
+                    background: url('../../../assets/icon/INK.svg');
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                       
+                    }
+
+                }
+            } */
+    }
+}  
+
+    .tattoo-container {
+        flex-basis: 60%;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 0 auto;
+        flex-wrap: nowrap;
+
+
+        .tattoo {
+            flex: 0 0 80%;
+            
+            display: flex;
+            flex-direction: column;
+            .header-tattoo {
+                padding-left: 1em;
+                flex-basis: 5%;
+                font-weight: bold;
+                font-size: 3vh;
+                color: #222;
+
+        
+            }
+            .tattoo-card-container {
+                width: 100%;
+                flex-basis: 95%;
+                display: flex;
+        
+                flex-wrap: nowrap;
+                flex-direction: row;
+                overflow-x: scroll;
+                .tattoo-card-list {
+                    flex: 0 0 20%;
+                   /*  height: 100%; */
+                    padding: 1em;
+                    .tattoo-cards {
+                        height: 100%;
+                        width: 100%;
+                        position: relative;
+                        border-radius: 6px;
+                       
+                        overflow: hidden;
+                        font-size: 80%;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.281);
+                        .booking {
+                            position: absolute;
+                            bottom: 0;
+                            width: 100%;
+                            height: 25%;
+                            padding: .5em;
+                            z-index: 20;
+                            display: flex;
+                            align-items: flex-end;
+                            background: #000;
+
+                            &::after {
+                                position: absolute;
+                                top: 5%;
+                                width: 3px;
+                                border-radius: 50px;
+                                height: 90%;
+                                bottom: 5%;
+                                background: rgb(255, 174, 0);
+                                content: '';
+                            }
+
+                         /*    display: none; */
+                            .btn-book {
+                                width: 100%;
+                               
+                             
+                            }
+                           
+                        }
+
+                        .info-tattoo {
+                            height: 75%;
+                            width: 100%;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            overflow: auto;
+                            background: rgba(0,0,0,0.5);
+                            z-index: 10;
+                             display: none;   
+                            padding: 1em;
+
+                            article {
+                                /* padding: .5em; */
+                                color: #fff;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 5;
+                                overflow: hidden;
+                                font-size: 100%;
+                              /*   display: none; */
+                            
+                              h4 {
+                                  text-align: center;
+
+                              }
+                              p {
+
+                              }
+                            }
+                        }
+
+                      
+
+                        
+                        img {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    
+                   
+                }
+
+               
+
+               
+            }
+
+        } 
+        
+       
+    }
+
+   .tattoo-cards:hover{
+            filter: saturate(10%);
+       
+    }
+     .tattoo-cards:hover .info-tattoo{
+       display: block;
+   
+}
+    @media only screen and (max-width : 600px) {
+        .tattoo-container {
+            width: 100%;
+            flex: 0 0 80%;
+
+            .tattoo {
+                flex: 0 0 50%;
+          
+
+                .tattoo-card-container {
+                   
+                    .tattoo-card-list {
+                        flex: 0 0 70%;
+                        padding: .6em;
+                    }
+                }
+                       
+            }
+        }                  
+    } 
+
+    @media only screen and (min-width : 600px) {
+        .tattoo-container {
+            width: 100%;
+
+            .tattoo {
+                flex: 0 0 50%;
+                
+
+                .tattoo-card-container {
+                   
+                    .tattoo-card-list {
+                        flex: 0 0 40%;
+                        padding: .6em;
+                    }
+                }
+                       
+            }
+        }                  
+    } 
+
+
+    @media only screen and (min-width : 768px) {
+        .tattoo-container {
+            width: 100%;
+
+            .tattoo {
+                flex: 0 0 50%;
+                height: 50%;
+
+                .tattoo-card-container {
+                   
+                    .tattoo-card-list {
+                        flex: 0 0 40%;
+                        padding: .6em;
+                    }
+                }
+                       
+            }
+        }                  
+    } 
+         
+    @media only screen and (min-width : 1024px) {
+        .tattoo-container {
+            width: 100%;
+
+            .tattoo {
+                flex: 0 0 50%;
+
+                .tattoo-card-container {
+                    .tattoo-card-list {
+                        flex: 0 0 30%;
+                    }
+                }
+                       
+            }
+        }                 
+      }
+      
+   
+    @media only screen and (min-width : 1200px) {
+        .tattoo-container {
+            width: 100%;
+
+            .tattoo {
+                flex: 0 0 50%;
+
+                .tattoo-card-container {
+                    .tattoo-card-list {
+                        flex: 0 0 20%;
+                        padding: 1em;
+                    }
+                }
+                       
+            }
+        }                 
+      }
+   
+   /*  @media only screen and (max-width: 600px) {
+        .header {
+           .user-header {
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+
+            .list {
+                justify-content: space-between;
+                width: 100%;
+                flex: 1;
+                padding: 0;
+
+                .btn-create-account {
+                    display: none;
+                }
+            }
+
+            .list li {
+                display: none;
+            }
+           }
+           .information {
+            .popOver {
+             position: fixed;
+             top: 0%;
+             left: 0;
+             min-width: 100%;
+             max-width: 100%;
+             height: 100%;
+               &::after {
+                
+                top: -12%;
+                right: 0%;
+                
+                
+                }
+                .notification-header {
+                    padding-top: 0;
+
+                } 
+                .cardList {
+                   
+
+                    .cardItem {
+                        width: 95%;
+                        flex-basis: 15%;
+                        .call {
+                            width: 15%;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            right: -7%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            .fab-button {
+                                width: 5vh;
+                                height: 5vh;
+
+                                .icon {
+                                    font-size: 1vh;
+                                }
+                            }
+
+                        }
+                        .image-card {
+                            flex-basis: 35%;
+                           
+                        }
+                        .info {
+                            .dates {
+                                font-size: 2vh;;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        } 
+
+        
+   } */
+/*    @media only screen and (min-width: 600px) {
+    .header {
+       .user-header {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+
+        .list {
+            justify-content: space-between;
+            width: 100%;
+            flex: 1;
+            padding: 0;
+
+            .btn-create-account {
+                display: none;
+            }
+        }
+
+        .list li {
+            display: none;
+        }
+       }
+       .information {
+        .popOver {
+         position: fixed;
+         top: 0%;
+         left: 0;
+         min-width: 100%;
+         max-width: 100%;
+         height: 100%;
+           &::after {
+            
+            top: -12%;
+            right: 0%;
+            
+            
+            }
+        }
+    }
+    } 
+
+    
+} */
+}
+
+.header-para {
+    font-weight: bold;
+    color: rgb(92, 92, 92);
+
+}
+
+.show {
+    opacity: 1;
+}
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .user-header {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background: rgba(85, 85, 85, 0.5); 
+    }
+
+  }
+
+  @media only screen and (min-width: 600px) {
+
+  }
+  @media only screen and (min-width: 768px) {
+      
+}
+@media only screen and (min-width: 900px) {
+      
+}
+@media only screen and (min-width: 1024px) {
+      
+}
