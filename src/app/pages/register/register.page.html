@@ -1,9 +1,110 @@
-<ion-header>
+<ion-header translucent no-border>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    
+    <ion-title text-center style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Create Account</ion-title>
+    <ion-buttons slot="end" (click)="dismiss()">
+      <ion-button fill="icon-only">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen padding>
+  <form   [formGroup]="tattooForm">
+  <main class="main">
+   <section class="upload-tattoo">
+    <h1 class="ink">INK TATTOOS</h1>
+   </section>
+ 
+    <section class="form-container">
+        
+            
+            <ion-list>
 
+                <ion-item>    
+                  <ion-label></ion-label> 
+                    <ion-input type="text" formControlName="name" name="name" [(ngModel)]="name"></ion-input>
+                  </ion-item>
+                    <div class="error" *ngFor="let validate of validation_messages.name">
+                      <div class="messages" *ngIf="tattooForm.get('name').hasError(validate.type) && (tattooForm.get('name').dirty || tattooForm.get('name').touched)">
+                        {{validate.message}}
+                    </div> 
+                  </div>
+                  
+
+                  <ion-item>
+                       
+                      <ion-input type="tel" formControlName="number" name="name" [(ngModel)]="number" placeholder="Enter Phone number"></ion-input>
+                    </ion-item>
+                    <div class="error" *ngFor="let validate of validation_messages.number">
+                      <div class="messages" *ngIf="tattooForm.get('number').hasError(validate.type) && (tattooForm.get('number').dirty || tattooForm.get('number').touched)">
+                        {{validate.message}}
+                    </div> 
+                  </div>
+                  
+
+                     <ion-item>
+                        <ion-input type="text" formControlName="email"name="name" [(ngModel)]="email" placeholder="Enter Email"></ion-input>
+                      </ion-item>
+                        <div class="error" *ngFor="let validate of validation_messages.email">
+                          <div class="messages" *ngIf="tattooForm.get('email').hasError(validate.type) && (tattooForm.get('email').dirty || tattooForm.get('email').touched)">
+                            {{validate.message}}
+                        </div> 
+                      </div>
+                      
+                      
+                  
+                         <ion-item style="margin-bottom: 10%;">
+                       
+                          <ion-input type="password" formControlName="password" name="name" [(ngModel)]="password" placeholder="Enter password"></ion-input>   
+                        </ion-item>                         
+                          <div class="error" *ngFor="let validate of validation_messages.password">
+                            <div class="messages" *ngIf="tattooForm.get('password').hasError(validate.type) && (tattooForm.get('password').dirty || tattooForm.get('password').touched)">
+                              {{validate.message}}
+                          </div> 
+                        </div>
+                       
+                      
+                  
+                           <ion-button shape="round" expand="block" color="secondary" (click)="register(tattooForm)" [disabled]="!tattooForm.valid">Register</ion-button> 
+                    
+                     <div class="signin">
+                        <p>Already have an Account? </p><ion-button  fill="clear" size="small" (click)="SignIn()">Sign In</ion-button>
+                     </div>
+                     
+                </ion-list>
+    </section>
+  
+  </main>
+</form>
+  <!-- 
+  <ion-label>Tattooname</ion-label>
+  
+  <ion-input type="text"[(ngModel)]="tattoo.name" ></ion-input>
+  
+ 
+
+
+  <ion-label>Pricerange</ion-label>
+  <ion-input type="number"   [(ngModel)]="tattoo.pricerange"  ></ion-input>
+ 
+
+
+    <ion-label>Categories</ion-label>
+    <ion-select [(ngModel)]="tattoo.categories"  multiple="true">
+      <ion-select-option value="Previous work" >Previous work</ion-select-option>
+      <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
+    </ion-select>
+   
+
+
+    <ion-label>Description</ion-label>
+     <ion-input   type="text" [(ngModel)]="tattoo.description" ></ion-input>
+   
+
+     <button  (click)="addtattoo()" class="submit" ion-button full round>Add tatoo</button> 
+    -->
+ 
 </ion-content>
+

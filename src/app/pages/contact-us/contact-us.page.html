@@ -1,9 +1,70 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>contact-us</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
+ 
+  <main class="main animated fadeIn">
+    <nav class="nav-bar">
+      <div class="navigation animated slideInDown delay-1s">
+        <div class="logo">
+          <img src="../../../assets/anotherLogo.svg" width="100px" alt="">
+        </div>
+        <div class="list">
+          <ul>
+              <li><a routerLink="/xplore">Explore</a></li>
+              <li><a routerLink="/contact-us">Contact Us</a></li>
+          </ul>
 
+          <div class="profile">
+            <p>muenda</p>
+            <div class="profile-image">
+              <img src="../../../assets/sergio-rodriguez-portugues-del-olmo-IbnMDtiUP4Q-unsplash.jpg" alt="">
+            </div>
+          </div>
+          <div class="notifications"  (click)="Notifications()">
+            <ion-button fill="clear" color="light" size="large">
+              <ion-icon name="notifications-outline"> </ion-icon>
+            </ion-button>
+            <ion-badge class="badges" color="secondary">
+              4
+            </ion-badge>
+          </div>
+
+          <ion-button class="btn-menu" fill="clear" color="light" size="large">
+              <ion-icon name="menu"> </ion-icon>
+            </ion-button>
+        </div>
+
+      </div>
+    </nav>
+    <div class="header">
+      <h1 class="head">Get In Touch With Us.</h1>
+    </div>
+    <div class="information"  *ngFor="let contact of Contact">
+        <div class="phone">
+          <ion-button fill="clear" color="dark" size="large">
+            <ion-icon name="phone-portrait"></ion-icon>
+          </ion-button>
+          <p>{{ contact.doc.phoneNumber}} </p>
+       
+        </div>
+        <div class="address">
+          <ion-button fill="clear" color="dark" size="large">
+            <ion-icon name="pin"></ion-icon>
+          </ion-button>
+          <p>{{ contact.doc.address}}</p>
+        
+        </div>
+        <div class="email">
+          <ion-button fill="clear" color="dark" size="large">
+            <ion-icon name="mail"></ion-icon>
+          </ion-button>
+          <p> {{ contact.doc.email}}</p>
+        </div>
+    </div>
+
+    <div class="map">
+      <div class="map-image">
+        <img src="../../../assets/icon/Group 1.jpg" alt="">
+      </div>
+    </div>
+    </main>
 </ion-content>
