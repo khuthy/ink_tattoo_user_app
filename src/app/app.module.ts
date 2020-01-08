@@ -10,7 +10,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { FileTransfer,  FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './auth-guard.service';
@@ -27,6 +27,7 @@ import { AuthGuardService } from './auth-guard.service';
   providers: [
     StatusBar,
     AuthGuardService,
+    FileTransfer, FileTransferObject,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

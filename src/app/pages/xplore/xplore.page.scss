@@ -28,6 +28,8 @@
       display: none;
   }
 
+
+
 .main {
     height: 100%;
     width: 100%;
@@ -49,12 +51,6 @@
         justify-content: center;
         align-items: center;
 
-        .fab-btn {
-            position: absolute;
-            top: -10%;
-            right: 0;
-        }
-
 
         .container-onboarding {
             position: relative;
@@ -66,41 +62,9 @@
 
         }
     }
-
-    .slide-con {
-       /*  display: flex;
-        flex-direction: column; */
-        height: 100%;
-        widows: 100%;
-       /*  background: red; */
-    }
-    .image {
-        position: relative;
-        height: 40%;
-     /*    background: red; */
-
-        img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: none;
-
-        }
-    }
-
-    .slider-div {
-        height: 100%;
-        widows: 100%;/* 
-        background: red; */
-        display: flex;
-       
-    }
-
     
     .header {
+
         flex-basis: 40%;
         width: 100%;
         background: linear-gradient((45deg,rgba(0,0,0,0.5)50%, (rgba(0,0,0,0) 50%))), url('../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg');
@@ -111,6 +75,8 @@
         flex-direction: column;
         position: relative;
         z-index: -1;
+        
+    
 
         .user-header {
             flex-basis: 15%;
@@ -317,9 +283,6 @@
                 z-index: -1;
             }
          }
-         .logo img {
-             display: none;
-         }
         }             
           
          
@@ -515,9 +478,9 @@
                                   text-align: center;
 
                               }
-                              p {
+                            //   p {
 
-                              }
+                            //   }
                             }
                         }
 
