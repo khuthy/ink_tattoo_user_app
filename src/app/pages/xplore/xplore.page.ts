@@ -130,7 +130,12 @@ tattoo = {
     // this.name = this.DeliverDataService.name;
 
            //User's details
-          
+
+           if(firebase.auth().currentUser) {
+            this.email=firebase.auth().currentUser.email;
+           }
+           
+
           
    
            this.db.collection("Bookings").onSnapshot(data => {         
