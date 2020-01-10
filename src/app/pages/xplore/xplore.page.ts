@@ -116,7 +116,11 @@ tattoo = {
     this.name = this.DeliverDataService.name;
 
            //User's details
-           this.email=firebase.auth().currentUser.email;
+
+           if(firebase.auth().currentUser) {
+            this.email=firebase.auth().currentUser.email;
+           }
+           
 
           
    
