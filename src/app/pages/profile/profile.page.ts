@@ -3,10 +3,12 @@ import * as firebase from 'firebase';
 import { DeliverDataService } from 'src/app/deliver-data.service';
 import { Router } from '@angular/router';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-// import { File } from '@ionic-native/file/ngx';
-import { ModalController } from '@ionic/angular';
+import { File } from '@ionic-native/file/ngx';
+import { ModalController, Platform } from '@ionic/angular';
 import { NotificationsPage } from 'src/app/notifications/notifications.page';
 import { DatePipe } from '@angular/common';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,7 @@ import { DatePipe } from '@angular/common';
 export class ProfilePage implements OnInit {
   respnses=[]
 
-  constructor(private DeliverDataService: DeliverDataService,private rout: Router, private modalController: ModalController, private rendered: Renderer2, public fileTransfer : FileTransferObject,  private transfer: FileTransfer)  { this.respnses = this.DeliverDataService.AcceptedData; }
+  constructor(private DeliverDataService: DeliverDataService, public fileOpener : FileOpener, public plt : Platform, private rout: Router, private modalController: ModalController, private rendered: Renderer2, public fileTransfer : FileTransferObject, public file : File ,  private transfer: FileTransfer)  { this.respnses = this.DeliverDataService.AcceptedData; }
 
   loader = true;
   User=[];
@@ -34,19 +36,54 @@ export class ProfilePage implements OnInit {
   pdf;
   edit: boolean = false;
   editDivModal = document.getElementsByClassName('modal');
+
+
+  Myname = "";
+  Mynumber = "";
+  link = "";
+
+
+  MyPdf = "";
+  pdfObj = null;
+
+  MyNotifications = 0;
   
   db = firebase.firestore();
+
   ngOnInit() {
+
+    
   }
+
   logout(){
+
+    console.log("Method Called");
+    
     this.loader = true;
     this.DeliverDataService.logoutUser().then(()=>{
       this.rout.navigateByUrl('xplore');
       setTimeout(() => {
         this.loader = false;
-      }, 4000);
+      }, 2000);
     })
+
     }
+
+    Edit(){
+      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).update({
+        name :this.Myname,
+      
+        number:this.Mynumber,
+      
+      });
+
+
+      this.modalAnimate();
+   
+    }
+
+
+  
   
     modalAnimate() {
       this.edit = !this.edit;
@@ -78,9 +115,118 @@ export class ProfilePage implements OnInit {
     //   });
       
     // }
+
+    downloadPdf() {
+      
+
+      this.db.collection("Admin").onSnapshot(data => {
+        data.forEach(i => {
+          
+          this.MyPdf = i.data().pdf;
+          this.link = i.data().pdf;
+          console.log("weeeeeee ", this.MyPdf);
+          
+        })
+      })
+
+     setTimeout(() => {
+      window.location.href = this.link;
+     }, 1000);
+    
+
+  //     this.fileOpener.open(this.MyPdf, 'application/pdf')
+  // .then(() => console.log('File is opened'))
+  // .catch(e => console.log('Error opening file', e));
+
+  //     if (this.plt.is('cordova')) {
+  //       this.pdfObj.getBuffer((buffer) => {
+  //         var blob = new Blob([buffer], { type: 'application/pdf' });
+  // ​
+  //         // Save the PDF to the data Directory of our App
+  //         this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
+  //           // Open the PDf with the correct OS tools
+  //           this.fileOpener.open(this.MyPdf, 'application/pdf');
+  //         });
+  //       });
+  //     } else {
+  //       // On a browser simply use download!
+  //       this.pdfObj.download();
+  //     }
+    }
     
     
   ionViewWillEnter(){
+
+   
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+
+        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).onSnapshot(item => {
+          console.log("User Logged in ", item.data());
+          this.Myname = item.data().name;
+          this.Mynumber = item.data().number;
+          
+        })
+
+        this.email=firebase.auth().currentUser.email;
+        
+        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(data => {
+          data.forEach(a => {
+
+            if(a.data().bookingState === "Accepted"){ 
+
+              this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+              .collection("Response")
+              
+              .get().then(myItem => {
+                this. MyNotifications = 0;     
+                myItem.forEach(doc => {
+                  if(doc.data().bookingState === "Pending"){
+                  
+                   this. MyNotifications += 1;
+                   console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+                    // this.array.push(doc.data())
+                    // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+                  }   
+                })
+            
+          })
+          // return true; 
+             }
+          })
+        })
+        
+        
+        // .get().then(i => {
+        //   i.forEach(a => {
+  
+        //    if(a.data().bookingState === "Accepted"){ 
+
+        //     this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+        //     .collection("Response").get().then(myItem => {
+        //       this. MyNotifications = 0;     
+        //       myItem.forEach(doc => {
+        //         if(doc.data().bookingState === "Pending"){
+                
+        //          this. MyNotifications += 1;
+        //          console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+        //           // this.array.push(doc.data())
+        //           // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+        //         }   
+        //       })
+          
+        // })
+        // // return true; 
+        //    }
+          
+        //   })
+        // })
+
+      }
+    })
+
+
          //User's details
          this.email=firebase.auth().currentUser.email;
    
@@ -138,7 +284,7 @@ export class ProfilePage implements OnInit {
             if(i.exists){
               if(i.data().bookingState === "Accepted"){
                 
-                console.log("ewewew ", i.data());
+               
                 this.Response.push(i.data());
                 this.size=  this.Response.length;
                 

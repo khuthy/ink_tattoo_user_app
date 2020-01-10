@@ -39,7 +39,11 @@ const routes: Routes = [
   {
     path: 'contact-us',
     loadChildren: () => import('./pages/contact-us/contact-us.module').then( m => m.ContactUsPageModule)
+  },  {
+    path: 'customize',
+    loadChildren: () => import('./customize/customize.module').then( m => m.CustomizePageModule)
   },
+
  
 
 

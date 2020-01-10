@@ -21,9 +21,7 @@
             <ion-button fill="clear" color="light" size="large">
               <ion-icon name="notifications-outline"> </ion-icon>
             </ion-button>
-            <ion-badge class="badges" color="secondary">
-              4
-            </ion-badge>
+            <ion-badge class="badges" color="secondary">{{MyNotifications}}</ion-badge>
           </div>
           <ion-button class="btn-menu" fill="clear" color="light" size="large">
               <ion-icon name="menu"> </ion-icon>
@@ -93,12 +91,18 @@
                             <p>Booking Status : {{request.bookingState}} </p>
                             <p>Start Date     : {{request.startingDate | date: 'fullDate'}}</p>
                             <p>End Date  : {{request.endingDate | date: 'fullDate'}}</p>
-                            <p>{{diffDays}} Days Sessions</p>
+                            <p>{{request.days}} Days Sessions</p>
                         </div>
+
+
+                        
                         <div class="btn-downloads">
-                           <button class="btn-downla" (click)="download()">
+                         
+                           <button class="btn-downla" (click)="downloadPdf()">
                               <ion-icon name="download"></ion-icon> &nbsp; Download Contract
                            </button>
+
+                           
                         </div>
                       
                       </div>
@@ -108,13 +112,15 @@
                  
                 </div>
           </div>
-          <div class="customized-tattoo">
+
+          
+           <!--  <div class="customized-tattoo">
             <div class="header"><p>Your Customized Tattoos</p></div>
             <div class="scroll-container">
                <div class="no-pictures">
                 <p>You have not customized your favourate tattoo</p>
               </div> 
-             <!--   <div class="cards" >
+             <div class="cards" >
                 <div class="card">
                   <img src="../../../assets/sergio-rodriguez-portugues-del-olmo-IbnMDtiUP4Q-unsplash.jpg" alt="">
                 </div>
@@ -123,11 +129,12 @@
                   <div class="card">
                       <img src="../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg" alt="">
                   </div>
-                </div> --> 
+                </div> 
             </div>
-          </div>
+          </div>-->
         </div>
     </section>
+    
     <div class="modal edit animated " [ngClass]="{'flipInX': edit, 'flipOutY': !edit}">
       <div class="small-modal-edit-profile">
         <ion-fab-button color="dark" size="lage" class="close-btn" fill="clear" (click)="modalAnimate()">
@@ -137,6 +144,21 @@
           <ion-grid>
             <ion-row justify-content-center>
               <ion-col size="12" class="pro-form-image">
+              name : <input type="text" [(ngModel)]="Myname">
+            </ion-col>
+             
+            </ion-row>
+
+            <ion-row justify-content-center>
+              <ion-col size="12" class="pro-form-image">
+                number : <input type="text" [(ngModel)]="Mynumber">
+              
+              </ion-col>
+            </ion-row>
+
+            <ion-row justify-content-center>
+              <ion-col size="12" class="pro-form-image">
+                <button (click)="Edit()">Edit</button>
               
               </ion-col>
             </ion-row>

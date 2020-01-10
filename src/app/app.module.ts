@@ -1,3 +1,6 @@
+import { CustomizePageModule } from './customize/customize.module';
+
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { NotificationsPageModule } from './notifications/notifications.module';
 import { SignInPageModule } from './pages/sign-in/sign-in.module';
 import { SuccessPagePageModule } from './pages/success-page/success-page.module';
@@ -14,6 +17,8 @@ import { FileTransfer,  FileTransferObject } from '@ionic-native/file-transfer/n
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './auth-guard.service';
+import { File } from '@ionic-native/file/ngx';
+
 
 
 
@@ -23,8 +28,10 @@ import { AuthGuardService } from './auth-guard.service';
 @NgModule({
   declarations: [AppComponent ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, NotificationsPageModule, BookingModalPageModule, RegisterPageModule, SuccessPagePageModule, SignInPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CustomizePageModule, NotificationsPageModule, BookingModalPageModule, RegisterPageModule, SuccessPagePageModule, SignInPageModule],
   providers: [
+    FileOpener,
+    File,
     StatusBar,
     AuthGuardService,
     FileTransfer, FileTransferObject,

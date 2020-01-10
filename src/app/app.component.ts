@@ -18,6 +18,9 @@ import { AlertController } from '@ionic/angular';
 export class AppComponent {
 
 
+one_signal_id = '3ce1cb91-88ef-4205-a5e7-71eb3ceae6b6';
+firebase_id = '396095430599';
+
 
   constructor(
     private alertCtrl: AlertController,
@@ -48,6 +51,8 @@ export class AppComponent {
     });
   }
 
+
+  setupPush() {}
   
 
 

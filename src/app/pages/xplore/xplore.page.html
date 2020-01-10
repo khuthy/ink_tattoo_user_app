@@ -54,7 +54,7 @@
                   <ion-button (click)="Notifications()"  color="light" fill="clear" size="large">
                       <ion-icon name="notifications-outline"></ion-icon>
                     </ion-button>
-                  <ion-badge class="badge" color="light">7</ion-badge>
+                  <ion-badge class="badge" color="light">{{MyNotifications}}</ion-badge>
                 
                   
               </div>
@@ -78,7 +78,7 @@
     </section>
 
     <div class="tattoo-container">
- <div class="tattoo">
+<!--  <div class="tattoo">
           <div class="header-tattoo">
             <p>Popular Tattoos</p>
           </div>
@@ -100,7 +100,15 @@
                   
                 </div> 
           </div>
-      </div>   
+      </div>  -->  
+
+       <ion-fab *ngIf="showProfile1" vertical="bottom" horizontal="end" color="secondary" slot="fixed">
+        <ion-fab-button (click)="opnModal()">
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab> 
+
+
       <div class="tattoo">
         <div class="header-tattoo">
           <p class="design">Design Tattoos</p>

@@ -1,7 +1,8 @@
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { DeliverDataService } from './../deliver-data.service';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+
 
 
 @Component({
@@ -16,7 +17,9 @@ export class NotificationsPage implements OnInit {
   showMessage : boolean;
   message = "";
 
-  constructor(public DeliverDataService : DeliverDataService, private modalController: ModalController ) {
+  days = "";
+
+  constructor(public DeliverDataService : DeliverDataService,public AlertController : AlertController, private modalController: ModalController ) {
     this.array = [];
     this.array = this.DeliverDataService.AcceptedData;
     console.log("Data in the Notifications ", this.array);
@@ -24,6 +27,32 @@ export class NotificationsPage implements OnInit {
    }
 
   ngOnInit() {
+
+
+    if(firebase.auth().currentUser){
+
+      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("CustomizedRequests").get().then(i => {
+        i.forEach(a => {
+
+         if(a.data().bookingState === "Accepted"){   
+          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("CustomizedResponse").get().then(myItem => {
+            this.array = [];       
+            myItem.forEach(doc => {
+              if(doc.data().bookingState === "Pending"){
+               
+                this.array.push(doc.data())
+                // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+              }   
+            })
+        
+      })
+      // return true; 
+         }
+        
+        })
+      })
+    }
+
 
     if(firebase.auth().currentUser){
 
@@ -51,7 +80,7 @@ export class NotificationsPage implements OnInit {
 
   }
 
-  Decline(data, i){
+  async Decline(data, i){
 
     
     this.array.splice(i, 1);
@@ -86,6 +115,14 @@ export class NotificationsPage implements OnInit {
         })
     
   })
+
+  const alert = await this.AlertController.create({
+    header: "",
+    subHeader: "",
+    message: "Successfully Declined",
+    buttons: ['OK']
+  });
+  alert.present();
 
   }
 
@@ -122,7 +159,15 @@ export class NotificationsPage implements OnInit {
     });
   }
 
-  Accept(data, i){
+  async Accept(data, i){
+
+    const alert = await this.AlertController.create({
+      header: "",
+      subHeader: "",
+      message: "Booking Finalised. Download the contract in your profile.",
+      buttons: ['OK']
+    });
+    alert.present();
 
     console.log("a", data.uid);
     this.showMessage = true;
@@ -170,8 +215,12 @@ export class NotificationsPage implements OnInit {
 
 
   
-  
   }
+
+ 
+
+
+  
 
 
 

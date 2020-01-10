@@ -111,7 +111,8 @@ export class BookingModalPage implements OnInit {
       uid : firebase.auth().currentUser.uid,
       customerName : this.Cname,
       number : this.number,
-      bookingState : 'waiting'
+      bookingState : 'waiting',
+      field : "Booking"
 
 
     }).then( async() => {

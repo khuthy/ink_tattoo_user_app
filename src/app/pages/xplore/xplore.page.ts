@@ -1,3 +1,4 @@
+import { CustomizePage } from './../../customize/customize.page';
 import { NotificationsPage } from './../../notifications/notifications.page';
 import { SignInPage } from './../../pages/sign-in/sign-in.page';
 import { BookingModalPage } from './../../booking-modal/booking-modal.page';
@@ -7,6 +8,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as firebase from 'firebase';
 import { ModalController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-xplore',
@@ -52,13 +54,16 @@ tattoo = {
   respnses = []
   AcceptedData = [];
 
+
+  MyNotifications = 0;
+
   ShowName=[];
 
   name = "";
 
   email: string;
  
-
+  storage = firebase.storage().ref();
   showProfile1;
 
   constructor(public DeliverDataService : DeliverDataService, public modalController: ModalController, public alertCtrl: AlertController, private render: Renderer2, private rout:Router) {
@@ -82,6 +87,15 @@ tattoo = {
      return await modal.present();
    }
 
+
+   async opnModal(){
+    let modal = await this.modalController.create({
+      component : CustomizePage,
+      cssClass: 'modalNotification'
+    })
+    return await modal.present();
+   }
+
    load(){
 
     if(firebase.auth().currentUser){
@@ -95,7 +109,7 @@ tattoo = {
             myItem.forEach(doc => {
               if(doc.data().bookingState === "Pending"){
                 this.AcceptedData.push(doc.data())
-                console.log("@@@@@@@@@", this.AcceptedData);
+               
               }   
             })
         
@@ -113,11 +127,10 @@ tattoo = {
 
    ionViewWillEnter(){
 
-    this.name = this.DeliverDataService.name;
+    // this.name = this.DeliverDataService.name;
 
            //User's details
-           this.email=firebase.auth().currentUser.email;
-
+          
           
    
            this.db.collection("Bookings").onSnapshot(data => {         
@@ -145,12 +158,87 @@ tattoo = {
 
 
 
+  changeListener(event): void {
+    console.log("My Method is Called");
+    
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress , '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        console.log('File avail at: ', dwnURL);
+        this.tattoo.image = dwnURL;
+      });
+    });
+  }
 
   
   showProfile(){
+
+
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
+
         this.showProfile1 = true;
+
+        this.email=firebase.auth().currentUser.email;
+        
+        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(data => {
+          data.forEach(a => {
+
+            if(a.data().bookingState === "Accepted"){ 
+
+              this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+              .collection("Response")
+              
+              .get().then(myItem => {
+                this. MyNotifications = 0;     
+                myItem.forEach(doc => {
+                  if(doc.data().bookingState === "Pending"){
+                  
+                   this. MyNotifications += 1;
+                   console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+                    // this.array.push(doc.data())
+                    // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+                  }   
+                })
+            
+          })
+          // return true; 
+             }
+          })
+        })
+        
+        
+        // .get().then(i => {
+        //   i.forEach(a => {
+  
+        //    if(a.data().bookingState === "Accepted"){ 
+
+        //     this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+        //     .collection("Response").get().then(myItem => {
+        //       this. MyNotifications = 0;     
+        //       myItem.forEach(doc => {
+        //         if(doc.data().bookingState === "Pending"){
+                
+        //          this. MyNotifications += 1;
+        //          console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+        //           // this.array.push(doc.data())
+        //           // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+        //         }   
+        //       })
+          
+        // })
+        // // return true; 
+        //    }
+          
+        //   })
+        // })
+
       }else {
         this.showProfile1 = false;
       }
@@ -250,6 +338,8 @@ logOut(){
 
  
 }
+
+
  async Booking(tattoo){
     if(firebase.auth().currentUser){
 

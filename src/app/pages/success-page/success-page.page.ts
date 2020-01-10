@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-success-page',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuccessPagePage implements OnInit {
 
-  constructor() { }
+  constructor(public modalController : ModalController) { }
 
   ngOnInit() {
+  }
+
+  CloseModel(){
+    this.modalController.dismiss({
+      'dismissed': true
+    });
   }
 
 }
