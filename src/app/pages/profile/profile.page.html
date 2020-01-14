@@ -1,6 +1,77 @@
 
 <ion-content>
-  <main class="main animated fadeIn">
+
+  <ion-fab vertical="bottom" horizontal="end" color="secondary" slot="fixed">
+    <ion-fab-button (click)="modalAnimate()" size="small" color="light">
+      <ion-icon mode="ios" name="create"></ion-icon>
+     </ion-fab-button>
+  </ion-fab>
+
+  <div class="main-container">
+
+    <aside class="split-pane animated" [ngClass]="{'slideOutLeft': !split, 'slideInLeft': split}">
+      <div class="close">
+        <div class="profile-image">
+          <img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt="">
+        </div>
+        <ion-button fill="clear" (click)="addClasseAnimate()" color="light">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+
+       
+      </div>
+
+      <div class="list-split-pane">
+        <ion-button fill="clear" expand="block" color="light">Explore</ion-button>
+        <ion-button fill="clear" expand="block" color="light">Contact Us</ion-button>
+        <ion-button fill="clear" expand="block" color="light">Sign In</ion-button>
+        <ion-button fill="clear" expand="block" color="light">Sign Out</ion-button>
+        <ion-button fill="solid" expand="block" color="secondary">Create Account</ion-button>
+     
+      </div>
+    </aside>
+
+    <div class="nav-bar">
+      <div  class="menu-btn">
+        <ion-button fill="clear" color="light" (click)="addClasseAnimate()">
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+      </div>
+     
+        <div class="logo">
+          <img src="../../../assets/anotherLogo.svg" width="100px" alt="">
+        </div>
+        <div class="list">
+          <ion-button fill="clear" expand="block" color="light">Explore</ion-button>
+          <ion-button fill="clear" expand="block" color="light">Contact Us</ion-button>
+          <ion-button fill="clear" expand="block" color="light">Sign In</ion-button>
+          <ion-button fill="clear" expand="block" color="light">Sign Out</ion-button>
+          <ion-button fill="clear" expand="block" color="light">Create Account</ion-button>
+          <div class="profile-image">
+            <p>Name Surname</p>
+            <img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt="">
+          </div>
+        </div>
+
+        <div class="notification">
+
+          <ion-button fill="clear" size="large" color="light">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </ion-button>
+          <ion-badge class="badge" color="secondary">34</ion-badge>
+        </div>
+      
+    </div>
+
+    <div class="content-main">
+    
+        </div>
+       
+          
+ 
+
+  </div>
+  <!-- <main class="main animated fadeIn">
     <nav class="nav-bar">
       <div class="navigation animated slideInDown delay-1s">
         <div class="logo">
@@ -56,12 +127,12 @@
                       <ion-icon name="create"></ion-icon>
                      </ion-fab-button>
                 </div>
-                <div class="analytics">
+                <div class="analytics"> -->
                     <!-- <div class="history">
                       <p>{{NumberOfBookings}}</p>
                       <p  style="color: #888; font-size: 16px;"><small> Total Bookings </small></p>
                     </div> -->
-                    <div class="accepted">
+                    <!-- <div class="accepted">
                         <p>{{size}}</p>
                         <p style="color: green; font-size: 16px;"><small>Accepted Bookings</small></p>
                       </div>
@@ -111,7 +182,7 @@
                  
                  
                 </div>
-          </div>
+          </div> -->
 
           
            <!--  <div class="customized-tattoo">
@@ -132,7 +203,7 @@
                 </div> 
             </div>
           </div>-->
-        </div>
+        <!-- </div>
     </section>
     
     <div class="modal edit animated " [ngClass]="{'flipInX': edit, 'flipOutY': !edit}">
@@ -166,7 +237,7 @@
       </div>
     </div>
   </main>
-   
+    -->
 <!-- 
   name: <input type="text" [(ngModel)]="name" placeholder="{{name}}"><br />
   phoneNumber: <input type="text" [(ngModel)]="phoneNumber" placeholder="{{phoneNumber}}"><br />

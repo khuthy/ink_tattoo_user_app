@@ -19,7 +19,11 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 export class ProfilePage implements OnInit {
   respnses=[]
 
-  constructor(private DeliverDataService: DeliverDataService, public fileOpener : FileOpener, public plt : Platform, private rout: Router, private modalController: ModalController, private rendered: Renderer2, public fileTransfer : FileTransferObject, public file : File ,  private transfer: FileTransfer)  { this.respnses = this.DeliverDataService.AcceptedData; }
+
+  split: boolean = false;
+  splitDiv: any = document.getElementsByClassName('split-pane');
+
+  constructor(private DeliverDataService: DeliverDataService, public fileOpener : FileOpener, public plt : Platform, private rout: Router, private modalController: ModalController, private rendered: Renderer2, public fileTransfer : FileTransferObject, public file : File ,  private transfer: FileTransfer, private render: Renderer2)  { this.respnses = this.DeliverDataService.AcceptedData; }
 
   loader = true;
   User=[];
@@ -54,6 +58,24 @@ export class ProfilePage implements OnInit {
 
     
   }
+
+
+  
+  addClasseAnimate() {
+    this.split = !this.split
+    if (this.split) {
+     
+       this.render.setStyle(this.splitDiv[0],'display','block'); 
+     
+    } else {
+      setTimeout(() => {
+       this.render.setStyle(this.splitDiv[0],'display','none');
+       
+       
+      }, 500);
+    }
+  }
+  
 
   logout(){
 

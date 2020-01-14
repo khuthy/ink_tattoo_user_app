@@ -25,7 +25,7 @@ export class SignInPage implements OnInit {
   email = "";
   password = "";
   AcceptedData = [];
-
+  loader:boolean  = false;
   showProfileState: boolean
   tattooForm : FormGroup;
   validation_messages = {
@@ -55,58 +55,64 @@ export class SignInPage implements OnInit {
 
 
   login(tattooForm){
+    this.loader = true;
 
 
-    if (this.tattooForm.valid ) {
-   firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
-
-    console.log("=========================");
-    if(firebase.auth().currentUser){
-
-      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").get().then(i => {
-        i.forEach(a => {
-
-         if(a.data().bookingState === "Accepted"){   
-          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Response").get().then(myItem => {       
-            myItem.forEach(doc => {
-              if(doc.data().bookingState === "Pending"){
-                this.DeliverDataService.AcceptedData = [];
-                this.DeliverDataService.AcceptedData.push(doc.data())
-                // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
-              }   
-            })
-          
-      })
-      // return true; 
+     setTimeout(() => {
+      if (this.tattooForm.valid ) {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
+     
+         console.log("=========================");
+         if(firebase.auth().currentUser){
+     
+           this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").get().then(i => {
+             i.forEach(a => {
+     
+              if(a.data().bookingState === "Accepted"){   
+               this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Response").get().then(myItem => {       
+                 myItem.forEach(doc => {
+                   if(doc.data().bookingState === "Pending"){
+                     this.DeliverDataService.AcceptedData = [];
+                     this.DeliverDataService.AcceptedData.push(doc.data())
+                     // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+                   }   
+                 })
+               
+           })
+           // return true; 
+              }
+             
+             })
+           })
          }
-        
+     
+     
+         this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).get().then(data => {
+           console.log("qqqqqqqqqqqqqq ", data.data().name);
+           this.DeliverDataService.name = data.data().name;
+           
+         })
+       
+     
+         this.Router.navigateByUrl('/xplore')
+     
+        }).catch(error => {
+     
+         this.modalController.dismiss({
+           'dismissed': true
+         });
+     
         })
-      })
-    }
+     
+        this.modalController.dismiss({
+         'dismissed': true
+       });
+     
+         }
 
+         this.loader = false;
+     }, 1000);
 
-    this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).get().then(data => {
-      console.log("qqqqqqqqqqqqqq ", data.data().name);
-      this.DeliverDataService.name = data.data().name;
-      
-    })
-  
-
-    this.Router.navigateByUrl('/xplore')
-
-   }).catch(error => {
-
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-
-   })
-
-   this.modalController.dismiss({
-    'dismissed': true
-  });
-
-    }
 
 
   }

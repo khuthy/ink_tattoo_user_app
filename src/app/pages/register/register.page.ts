@@ -45,6 +45,8 @@ export class RegisterPage implements OnInit {
       {type: 'maxlength', message: 'password must be atleast 6 char'},
     ]
   }
+
+  loader: boolean = false;
   constructor(public DeliverDataService : DeliverDataService,  private modalController: ModalController, public actionSheetController: ActionSheetController, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -59,9 +61,17 @@ export class RegisterPage implements OnInit {
 
   register(){
 
+
+    this.loader = true;
+
   
 
+   setTimeout(() => {
+
+    
     if (this.tattooForm.valid ) {
+
+   
   
 
     firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function(error) {
@@ -72,6 +82,8 @@ export class RegisterPage implements OnInit {
       
       // ...
     }).then(() => {
+
+
 
       this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).set({
         name : this.name,
@@ -89,6 +101,9 @@ this.dismiss()
           });
     });
   }
+
+  this.loader = false;
+   }, 1000);
 
   }
 
