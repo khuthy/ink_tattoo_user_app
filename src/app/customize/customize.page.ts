@@ -90,4 +90,10 @@ db = firebase.firestore();
     
   }
 
+  dismiss() {
+    this.ModalController.dismiss({
+      'dismissed': true
+    });
+  }
+
 }

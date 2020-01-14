@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ViewController } from '@ionic/core';
-import { ModalController, ActionSheetController } from '@ionic/angular';
+import { ModalController,AlertController, ActionSheetController } from '@ionic/angular';
 
 
 
@@ -42,10 +42,10 @@ export class RegisterPage implements OnInit {
     ],
     'password': [
       {type: 'required', message: 'Password is required.'},
-      {type: 'maxlength', message: 'password must be atleast 6 char'},
+      {type: 'maxlength', message: 'Password must be 6 char'},
     ]
   }
-  constructor(public DeliverDataService : DeliverDataService,  private modalController: ModalController, public actionSheetController: ActionSheetController, private fb: FormBuilder) { }
+  constructor(public AlertController:AlertController,public DeliverDataService : DeliverDataService,  private modalController: ModalController, public actionSheetController: ActionSheetController, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.tattooForm = this.fb.group({
@@ -79,7 +79,7 @@ export class RegisterPage implements OnInit {
         number : this.number
       })
            console.log("Logged in");
-       
+       this.reg()
 
 console.log("1111111111111111111111", firebase.auth().currentUser.email);
 
@@ -112,5 +112,14 @@ this.dismiss()
       'dismissed': true
     });
   }
+async reg(){
+const alert = await this.AlertController.create({
+  header: "",
+  subHeader: "",
+  message: "Successfully registered",
+  buttons: ['OK']
+});
+alert.present();
 
+}
 }

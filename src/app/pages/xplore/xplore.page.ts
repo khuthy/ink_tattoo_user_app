@@ -8,6 +8,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as firebase from 'firebase';
 import { ModalController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+// import { OneSignal } from '@ionic-native/onesignal';
 
 
 @Component({
@@ -126,6 +127,82 @@ tattoo = {
  
 
    ionViewWillEnter(){
+
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+      
+        this.showProfile1 = true;
+
+        this.email=firebase.auth().currentUser.email;
+        
+        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(data => {
+
+      
+
+          data.forEach(a => {
+
+            if(a.data().bookingState === "Accepted"){ 
+
+              this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+              
+              .collection("Response")
+                .onSnapshot(data => {
+
+                  this. MyNotifications = 0; 
+                  data.forEach(item => {
+                      
+                   
+                      if(item.data().bookingState === "Pending"){
+                      
+                       this. MyNotifications += 1;
+                       console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+                        // this.array.push(doc.data())
+                        // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+                      }   
+                   
+                  })
+                })
+
+
+              
+        
+          // return true; 
+             }
+          })
+        })
+        
+        
+        // .get().then(i => {
+        //   i.forEach(a => {
+  
+        //    if(a.data().bookingState === "Accepted"){ 
+
+        //     this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+        //     .collection("Response").get().then(myItem => {
+        //       this. MyNotifications = 0;     
+        //       myItem.forEach(doc => {
+        //         if(doc.data().bookingState === "Pending"){
+                
+        //          this. MyNotifications += 1;
+        //          console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+        //           // this.array.push(doc.data())
+        //           // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+        //         }   
+        //       })
+          
+        // })
+        // // return true; 
+        //    }
+          
+        //   })
+        // })
+
+      }else {
+        this.showProfile1 = false;
+      }
+    })
+
 
     // this.name = this.DeliverDataService.name;
 
@@ -269,6 +346,8 @@ tattoo = {
 
     
     this.db.collection("Tattoo").onSnapshot(data => {
+
+      this.Sketch = []
       data.forEach(item => {
         if(item.exists){
           if(item.data().categories === "Sketch/design"){
@@ -280,6 +359,7 @@ tattoo = {
       })
     })
     this.db.collection("Tattoo").onSnapshot(data => {
+      this.PreviouseWork = [];
       data.forEach(item => {
         if(item.exists){
           if(item.data().categories === "Previous work"){

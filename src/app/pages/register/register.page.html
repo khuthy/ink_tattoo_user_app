@@ -23,8 +23,7 @@
             <ion-list>
 
                 <ion-item>    
-                  <ion-label></ion-label> 
-                    <ion-input type="text" formControlName="name" name="name" [(ngModel)]="name"></ion-input>
+                    <ion-input type="text" formControlName="name" name="name" [(ngModel)]="name" placeholder="Enter name"></ion-input>
                   </ion-item>
                     <div class="error" *ngFor="let validate of validation_messages.name">
                       <div class="messages" *ngIf="tattooForm.get('name').hasError(validate.type) && (tattooForm.get('name').dirty || tattooForm.get('name').touched)">

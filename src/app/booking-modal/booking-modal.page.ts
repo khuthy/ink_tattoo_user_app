@@ -125,10 +125,30 @@ export class BookingModalPage implements OnInit {
 
     })
 
+    this.db.collection("Requests").doc().set({
+      category : this.category,
+      description : this.description,
+      image : this.image,
+      priceRange :  this.priceRange,
+      tattoName: this.name,
+      breadth : this.Breadth,
+      length : this.Length,
+      email : firebase.auth().currentUser.email,
+      uid : firebase.auth().currentUser.uid,
+      customerName : this.Cname,
+      number : this.number,
+      bookingState : 'waiting',
+      field : "Booking"
+
+    })
+
     this.modalController.dismiss({
       'dismissed': true
     });
   }
+
+
+ 
   }
 
   dismiss() {

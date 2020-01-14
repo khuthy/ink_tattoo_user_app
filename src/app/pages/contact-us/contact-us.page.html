@@ -1,6 +1,7 @@
 
 <ion-content>
  
+  
   <main class="main animated fadeIn">
     <nav class="nav-bar">
       <div class="navigation animated slideInDown delay-1s">
@@ -11,15 +12,17 @@
           <ul>
               <li><a routerLink="/xplore">Explore</a></li>
               <li><a routerLink="/contact-us">Contact Us</a></li>
+              <li class="profile" *ngIf="showProfile1" routerLink="/profile"  ShowName ><a>{{name}}</a></li>
+              <li *ngIf="showProfile1" (click)="logOut()" ><a>Sign Out</a></li>
           </ul>
-
-          <div class="profile">
-            <p>muenda</p>
-            <div class="profile-image">
-              <img src="../../../assets/sergio-rodriguez-portugues-del-olmo-IbnMDtiUP4Q-unsplash.jpg" alt="">
+          <!-- <div class="profile" *ngIf="showProfile1" routerLink="/profile"  ShowName >
+            <p class="profile-name">{{name}}</p>
+            <div class="image-profile">
+                <img src="../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg" alt="">
             </div>
-          </div>
-          <div class="notifications"  (click)="Notifications()">
+          </div> -->
+          
+          <div class="notifications"   *ngIf="showNotific" (click)="Notifications()">
             <ion-button fill="clear" color="light" size="large">
               <ion-icon name="notifications-outline"> </ion-icon>
             </ion-button>
@@ -27,12 +30,10 @@
               4
             </ion-badge>
           </div>
-
           <ion-button class="btn-menu" fill="clear" color="light" size="large">
               <ion-icon name="menu"> </ion-icon>
             </ion-button>
         </div>
-
       </div>
     </nav>
     <div class="header">
@@ -60,7 +61,6 @@
           <p> {{ contact.doc.email}}</p>
         </div>
     </div>
-
     <div class="map">
       <div class="map-image">
         <img src="../../../assets/icon/Group 1.jpg" alt="">

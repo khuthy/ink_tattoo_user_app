@@ -20,8 +20,8 @@ export class NotificationsPage implements OnInit {
   days = "";
 
   constructor(public DeliverDataService : DeliverDataService,public AlertController : AlertController, private modalController: ModalController ) {
-    this.array = [];
-    this.array = this.DeliverDataService.AcceptedData;
+    // this.array = [];
+    // this.array = this.DeliverDataService.AcceptedData;
     console.log("Data in the Notifications ", this.array);
     
    }
@@ -31,46 +31,24 @@ export class NotificationsPage implements OnInit {
 
     if(firebase.auth().currentUser){
 
-      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("CustomizedRequests").get().then(i => {
-        i.forEach(a => {
-
-         if(a.data().bookingState === "Accepted"){   
-          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("CustomizedResponse").get().then(myItem => {
-            this.array = [];       
-            myItem.forEach(doc => {
-              if(doc.data().bookingState === "Pending"){
-               
-                this.array.push(doc.data())
-                // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
-              }   
-            })
-        
-      })
-      // return true; 
-         }
-        
-        })
-      })
-    }
-
-
-    if(firebase.auth().currentUser){
-
       this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").get().then(i => {
         i.forEach(a => {
 
          if(a.data().bookingState === "Accepted"){   
-          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Response").get().then(myItem => {
-            this.array = [];       
-            myItem.forEach(doc => {
-              if(doc.data().bookingState === "Pending"){
+          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Response")
+          .onSnapshot(data => {
+            this.array = []; 
+            data.forEach(item => {
+              if(item.data().bookingState === "Pending"){
                
-                this.array.push(doc.data())
+                this.array.push(item.data())
                 // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
-              }   
+              } 
             })
-        
-      })
+          })
+          
+          
+    
       // return true; 
          }
         

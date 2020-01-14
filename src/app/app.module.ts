@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './auth-guard.service';
 import { File } from '@ionic-native/file/ngx';
 
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 
 
@@ -34,6 +35,7 @@ import { File } from '@ionic-native/file/ngx';
     File,
     StatusBar,
     AuthGuardService,
+    OneSignal,
     FileTransfer, FileTransferObject,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

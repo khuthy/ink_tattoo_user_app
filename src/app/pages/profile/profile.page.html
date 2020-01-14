@@ -29,6 +29,8 @@
         </div>
       </div>
     </nav>
+
+    
     <section class="container">
         <div class="profile-container">
           <div class="profile-info">
@@ -76,6 +78,8 @@
              
           </div>
         </div>
+
+
         <div class="details-container">
           <div class="history-booking">
             <div class="header">
@@ -133,6 +137,58 @@
             </div>
           </div>-->
         </div>
+
+
+
+        <div class="details-container">
+          <div class="history-booking">
+            <div class="header">
+              <p >Pending Bookings</p>
+            </div>
+              <div class="booking-card">
+                  <div class="booking-list" *ngFor="let request of Requests">
+                      <div class="booking-history-item">
+                        <div class="tattoo-booked">
+                          <img src="{{request.image}}" alt="">
+                        </div>
+                        <div class="info-tattoo">
+                            <p>Booking Status : {{request.bookingState}} </p>
+                            
+                        </div>
+
+
+                        
+                       
+                      
+                      </div>
+                    
+                  </div>
+                 
+                 
+                </div>
+          </div>
+
+          
+           <!--  <div class="customized-tattoo">
+            <div class="header"><p>Your Customized Tattoos</p></div>
+            <div class="scroll-container">
+               <div class="no-pictures">
+                <p>You have not customized your favourate tattoo</p>
+              </div> 
+             <div class="cards" >
+                <div class="card">
+                  <img src="../../../assets/sergio-rodriguez-portugues-del-olmo-IbnMDtiUP4Q-unsplash.jpg" alt="">
+                </div>
+              </div>
+              <div class="cards">
+                  <div class="card">
+                      <img src="../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg" alt="">
+                  </div>
+                </div> 
+            </div>
+          </div>-->
+        </div>
+
     </section>
     
     <div class="modal edit animated " [ngClass]="{'flipInX': edit, 'flipOutY': !edit}">

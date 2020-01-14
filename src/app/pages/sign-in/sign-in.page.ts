@@ -2,7 +2,7 @@ import { RegisterPage } from './../register/register.page';
 // import { XplorePage } from './../pages/xplore/xplore.page';
 import { DeliverDataService } from '../../deliver-data.service';
 
-import { ModalController } from '@ionic/angular';
+import { ModalController,AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from "firebase";
 import { Router } from '@angular/router';
@@ -41,7 +41,7 @@ export class SignInPage implements OnInit {
     ]
 
   }
-  constructor(public modalController : ModalController, private fb: FormBuilder,public Router : Router,  public DeliverDataService : DeliverDataService) { }
+  constructor(public AlertController:AlertController,public modalController : ModalController, private fb: FormBuilder,public Router : Router,  public DeliverDataService : DeliverDataService) { }
 
   ngOnInit() {
     this.showProfile();
@@ -93,6 +93,7 @@ export class SignInPage implements OnInit {
   
 
     this.Router.navigateByUrl('/xplore')
+    this.log()
 
    }).catch(error => {
 
@@ -136,5 +137,14 @@ export class SignInPage implements OnInit {
     
     return await modal.present();
   }
-  
+  async log(){
+    const alert = await this.AlertController.create({
+      header: "",
+      subHeader: "",
+      message: "Successfully logged in",
+      buttons: ['OK']
+    });
+    alert.present();
+    
+    }
 }

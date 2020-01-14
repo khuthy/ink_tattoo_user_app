@@ -185,7 +185,7 @@ export class ProfilePage implements OnInit {
                   if(doc.data().bookingState === "Pending"){
                   
                    this. MyNotifications += 1;
-                   console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+                   console.log("@@@@@@@@@@@@@",  doc.data() );
                     // this.array.push(doc.data())
                     // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
                   }   
@@ -303,24 +303,28 @@ export class ProfilePage implements OnInit {
       })
       
       //Pending
-      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").get().then(data => {
-        data.forEach(i => {
+      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(data => {
+
+        this.Requests=[];
+        this.PendingSize = 0;
+
+       
           data.forEach(i => {
             if(i.exists){
               if(i.data().bookingState === "waiting"){
-                this.Requests=[];
+               
                 console.log("ewewew ", i.data());
                 this.Requests.push(i.data());
               
-                this.PendingSize=  this.Requests.length;
+                this.PendingSize =  this.Requests.length;
               }
             }
           })
     
           
-        })
+    
+
       })
-  
     
       // this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").get().then(data => {
       //   data.forEach(i => {

@@ -1,4 +1,9 @@
 <ion-content>
+  <ion-fab *ngIf="showProfile1" vertical="bottom" horizontal="end" color="secondary" slot="fixed">
+    <ion-fab-button (click)="opnModal()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> 
 
   <div class="main animated delay-1s" [ngClass]="{'fadeIn': !showProfile1, 'slideInLeft': showProfile1}">
 
@@ -27,10 +32,11 @@
     <section class="header">
       <div class="user-header">
           <div class="logo">
-            <img src="../../../assets/anotherLogo.svg" width="100px" alt="">
             <ion-button class="btn-menu" (click)="addClasseAnimate()" size="large" color="light" fill="clear">
               <ion-icon name="menu"></ion-icon>
             </ion-button>
+            <img src="../../../assets/anotherLogo.svg" width="100px" alt="">
+           
           </div>
           <ul class="list">
             <div class="wraper-list animated" [ngClass]="{'slideInDown':menu, 'tada':!menu}" >
@@ -102,11 +108,7 @@
           </div>
       </div>  -->  
 
-       <ion-fab *ngIf="showProfile1" vertical="bottom" horizontal="end" color="secondary" slot="fixed">
-        <ion-fab-button (click)="opnModal()">
-          <ion-icon name="camera"></ion-icon>
-        </ion-fab-button>
-      </ion-fab> 
+       
 
 
       <div class="tattoo">
