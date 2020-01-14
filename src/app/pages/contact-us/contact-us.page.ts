@@ -11,6 +11,7 @@ import { SignInPage } from '../sign-in/sign-in.page';
 })
 export class ContactUsPage implements OnInit {
   Contact = [];
+  name = "";
   db = firebase.firestore();
   split: boolean = false;
   MyNotifications: number = 0;
@@ -99,7 +100,25 @@ export class ContactUsPage implements OnInit {
   ionViewWillLeave(){
     this.Contact = [];
   } 
+
+
+
   ionViewWillEnter(){
+
+
+    this.db.collection("Bookings").onSnapshot(data => {         
+      data.forEach(item => {
+        if(item.exists){
+
+          if(item.data().email === this.email){
+           
+            this.name = item.data().name
+          
+          }
+        }
+      })
+    })
+
     
     this.split = false;
     this.showProfile()
@@ -141,7 +160,12 @@ export class ContactUsPage implements OnInit {
       
       
     })
+
+
   }
+
+
+
   addClasseAnimates() {
     this.split = !this.split
     if (this.split) {
