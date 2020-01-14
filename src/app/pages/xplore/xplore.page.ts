@@ -6,7 +6,7 @@ import { DeliverDataService } from './../../deliver-data.service';
 import { RegisterPage } from './../../pages/register/register.page';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as firebase from 'firebase';
-import { ModalController, AlertController, Platform } from '@ionic/angular';
+import { ModalController, AlertController, Platform, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 // import { OneSignal } from '@ionic-native/onesignal';
 
@@ -18,8 +18,16 @@ import { Router } from '@angular/router';
 })
 export class XplorePage implements OnInit {
 
+  split: boolean = false;
+  tattooView: any;
+  splitDiv: any = document.getElementsByClassName('split-pane');
+  loader: boolean = true;
 
-/* Animations */
+  tattooDisplay: boolean = false;
+  tattooDisplaDiv: any = document.getElementsByClassName('tattoo-image');
+
+
+  /* Animations */
 popoverState = false;
 popoverDiv = document.getElementsByClassName('popOver');
 
@@ -63,11 +71,20 @@ tattoo = {
   name = "";
 
   email: string;
+
+  tattoos: any = {
+    image: '',
+    description: '',
+    price: '',
+    nameTattoo: '',
+    categories: ''
+  }
  
   storage = firebase.storage().ref();
   showProfile1;
+  continue: any;
 
-  constructor(public DeliverDataService : DeliverDataService, public modalController: ModalController, public alertCtrl: AlertController, private render: Renderer2, private rout:Router) {
+  constructor(public DeliverDataService : DeliverDataService, private toastController: ToastController, private plt: Platform, public modalController: ModalController, public alertCtrl: AlertController, private render: Renderer2, private rout:Router) {
 
     this.respnses = this.DeliverDataService.AcceptedData;
    
@@ -101,12 +118,12 @@ tattoo = {
 
     if(firebase.auth().currentUser){
 
-      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").get().then(i => {
+      this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(i => {
         i.forEach(a => {
   
          if(a.data().bookingState === "Accepted"){
               
-          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Response").get().then(myItem => {       
+          this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Response").onSnapshot(myItem => {       
             myItem.forEach(doc => {
               if(doc.data().bookingState === "Pending"){
                 this.AcceptedData.push(doc.data())
@@ -124,85 +141,24 @@ tattoo = {
 
    }
 
+
+
+   viewTattoo(image) {
+    this.viewTattoo = image;
+   }
+
  
+
+
 
    ionViewWillEnter(){
 
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-      
-        this.showProfile1 = true;
-
-        this.email=firebase.auth().currentUser.email;
-        
-        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(data => {
-
-      
-
-          data.forEach(a => {
-
-            if(a.data().bookingState === "Accepted"){ 
-
-              this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
-              
-              .collection("Response")
-                .onSnapshot(data => {
-
-                  this. MyNotifications = 0; 
-                  data.forEach(item => {
-                      
-                   
-                      if(item.data().bookingState === "Pending"){
-                      
-                       this. MyNotifications += 1;
-                       console.log("@@@@@@@@@@@@@",  this. MyNotifications );
-                        // this.array.push(doc.data())
-                        // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
-                      }   
-                   
-                  })
-                })
+   
 
 
-              
-        
-          // return true; 
-             }
-          })
-        })
-        
-        
-        // .get().then(i => {
-        //   i.forEach(a => {
-  
-        //    if(a.data().bookingState === "Accepted"){ 
-
-        //     this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
-        //     .collection("Response").get().then(myItem => {
-        //       this. MyNotifications = 0;     
-        //       myItem.forEach(doc => {
-        //         if(doc.data().bookingState === "Pending"){
-                
-        //          this. MyNotifications += 1;
-        //          console.log("@@@@@@@@@@@@@",  this. MyNotifications );
-        //           // this.array.push(doc.data())
-        //           // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
-        //         }   
-        //       })
-          
-        // })
-        // // return true; 
-        //    }
-          
-        //   })
-        // })
-
-      }else {
-        this.showProfile1 = false;
-      }
-    })
-
+   setTimeout(() => {
+      this.loader = false;
+   }, 1000);
 
     // this.name = this.DeliverDataService.name;
 
@@ -258,12 +214,71 @@ tattoo = {
     });
   }
 
+  addClasseAnimates() {
+    this.split = !this.split
+    if (this.split) {
+     
+       this.render.setStyle(this.splitDiv[0],'display','block'); 
+     
+    } else {
+      setTimeout(() => {
+       this.render.setStyle(this.splitDiv[0],'display','none');
+       
+       
+      }, 500);
+    }
+  }
+
+  tattooAnimated(tattoo) {
+
+
+    this.tattoos.image = tattoo.image;
+    this.tattoos.price = tattoo.pricerange;
+    this.tattoos.nameTattoo = tattoo.name;
+    this.tattoos.description = tattoo.description
+    this.tattoos.categories = tattoo.categories;
+    
+    
+    this.continue = tattoo;
+
+    
+
+
+
+
+    this.loader = true;
+    setTimeout(() => {
+      this.loader = false;
+      this.tattooDisplay = !this.tattooDisplay
+      if (this.tattooDisplay) {
+       
+         this.render.setStyle(this.tattooDisplaDiv[0],'display','block'); 
+
+         
+       
+      } else {
+        setTimeout(() => {
+         this.render.setStyle(this.tattooDisplaDiv[0],'display','none');
+         
+         
+        }, 500);
+      }
+ 
+    }, 1000);
+   
+  }
+
+
+ 
+
   
   showProfile(){
 
 
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
+
+        this.presentToast('You have logged in Successfully')
 
         this.showProfile1 = true;
 
@@ -277,7 +292,7 @@ tattoo = {
               this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
               .collection("Response")
               
-              .get().then(myItem => {
+              .onSnapshot(myItem => {
                 this. MyNotifications = 0;     
                 myItem.forEach(doc => {
                   if(doc.data().bookingState === "Pending"){
@@ -387,6 +402,11 @@ tattoo = {
 
 
 async CreateAccount(){
+  this.loader = true;
+  this.split = false;
+  setTimeout(() => {
+    this.loader = false;
+  }, 1000);
   let modal = await this.modalController.create({
     component : RegisterPage
   })
@@ -395,7 +415,11 @@ async CreateAccount(){
 }
 async Login(){
 
- 
+  this.loader = true;
+  this.split = false;
+  setTimeout(() => {
+    this.loader = false;
+  }, 1000);
  
 
     let modal = await this.modalController.create({
@@ -409,17 +433,35 @@ async Login(){
 
 
 }
+async presentToast(message) {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 1000,
+    position: 'bottom'
+  });
+  toast.present();
+}
+
 logOut(){
-
+  this.loader = true
+  this.split = false;
   this.ShowName=[];
-  firebase.auth().signOut().then(user => {
-    
-    console.log("Logged out successfully");
 
-  }).catch(error => {
-    console.log("Something went wrong");
-    
-  })
+  setTimeout(() => {
+    firebase.auth().signOut().then(user => {
+
+      this.loader = false;
+
+     this.presentToast('You are now logged out');
+      
+     
+  
+    }).catch(error => {
+      console.log("Something went wrong");
+      
+    })
+  }, 1000);
+ 
 
  
 }

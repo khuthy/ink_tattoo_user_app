@@ -1,9 +1,9 @@
+import { RegisterPage } from './../register/register.page';
 import { NotificationsPage } from './../../notifications/notifications.page';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as firebase from 'firebase';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { SignInPage } from '../sign-in/sign-in.page';
-import { DeliverDataService } from './../../deliver-data.service';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.page.html',
@@ -12,21 +12,82 @@ import { DeliverDataService } from './../../deliver-data.service';
 export class ContactUsPage implements OnInit {
   Contact = [];
   db = firebase.firestore();
-  ShowName=[];
-  
-  name = "";
+  split: boolean = false;
+  MyNotifications: number = 0;
   email: string;
-  showProfile1;
-  showNotific;
+  tattooView: any;
+  splitDiv: any = document.getElementsByClassName('split-pane');
+  loader: boolean = true;
+  showProfile1: boolean;
   contactUs: boolean = true;
   contactUsDiv = document.getElementsByClassName('contact-information');
   icon: string = 'arrow-dropleft';
   map: boolean = true;
   mapDiv = document.getElementsByClassName('map-location');
   mapIcon: string = 'close';
-  constructor(public modalController: ModalController, private render: Renderer2,private DeliverDataService : DeliverDataService) { }
+  constructor(public modalController: ModalController, private render: Renderer2, private toastController: ToastController) { }
   ngOnInit() {
   }
+  showProfile(){
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        /* this.presentToast('You have logged in Successfully'); */
+        this.showProfile1 = true;
+        this.email=firebase.auth().currentUser.email;
+        
+        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").onSnapshot(data => {
+          data.forEach(a => {
+            if(a.data().bookingState === "Accepted"){ 
+              this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+              .collection("Response")
+              
+              .onSnapshot(myItem => {
+                this. MyNotifications = 0;     
+                myItem.forEach(doc => {
+                  if(doc.data().bookingState === "Pending"){
+                  
+                   this. MyNotifications += 1;
+                   console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+                    // this.array.push(doc.data())
+                    // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+                  }   
+                })
+            
+          })
+          // return true; 
+             }
+          })
+        })
+        
+        
+        // .get().then(i => {
+        //   i.forEach(a => {
+  
+        //    if(a.data().bookingState === "Accepted"){ 
+        //     this.db.collection("Bookings").doc(firebase.auth().currentUser.uid)
+        //     .collection("Response").get().then(myItem => {
+        //       this. MyNotifications = 0;     
+        //       myItem.forEach(doc => {
+        //         if(doc.data().bookingState === "Pending"){
+                
+        //          this. MyNotifications += 1;
+        //          console.log("@@@@@@@@@@@@@",  this. MyNotifications );
+        //           // this.array.push(doc.data())
+        //           // console.log("@@@@@@@@@", this.DeliverDataService.AcceptedData);
+        //         }   
+        //       })
+          
+        // })
+        // // return true; 
+        //    }
+          
+        //   })
+        // })
+      }else {
+        this.showProfile1 = false;
+      }
+    })
+   }
   async Notifications(){
    
    let modal = await this.modalController.create({
@@ -35,38 +96,39 @@ export class ContactUsPage implements OnInit {
     })
     return await modal.present();
   }
-  logOut(){
-    this.ShowName=[];
-    firebase.auth().signOut().then(user => {
-      
-      console.log("Logged out successfully");
-  
-    }).catch(error => {
-      console.log("Something went wrong");
-      
-    })
-  
-   
-  }
+  ionViewWillLeave(){
+    this.Contact = [];
+  } 
   ionViewWillEnter(){
+    
+    this.split = false;
+    this.showProfile()
+    setTimeout(() => {
+      this.loader = false;
+    }, 1000);
+    if(firebase.auth().currentUser) {
+      this.showProfile1 = true;
+    }else {
+      this.showProfile1 = false;
+    }
     
     let firetattoo = {
       docid: '',
       doc: {}
     }
    
+  
+   
    
     this.db.collection('Admin').get().then(data => {
       
       //console.log('tt',this.Tattoos);
       data.forEach(item => {
-        this.Contact=[];
         firetattoo.doc = item.data();
         firetattoo.docid = item.id;
         
         
         this.Contact.push(firetattoo)
-        
         //console.log('all',this.Tattoos);
          firetattoo = {
           docid: '',
@@ -79,47 +141,63 @@ export class ContactUsPage implements OnInit {
       
       
     })
-    this.name = this.DeliverDataService.name;
-    //User's details
-    this.email=firebase.auth().currentUser.email;
-   
-    this.db.collection("Bookings").onSnapshot(data => {         
-      data.forEach(item => {
-        if(item.exists){
-         this.ShowName=[];
-          if(item.data().email === this.email){
-            this.DeliverDataService.name = item.data().name;
-            this.name = item.data().name
-            this.ShowName.push(item.data());
-            console.log("ShowName",item.data().name);
-          }
-        }
-      })
-    })
-  
-    this.showProfile();
-    this.showNotification();
   }
+  addClasseAnimates() {
+    this.split = !this.split
+    if (this.split) {
+     
+       this.render.setStyle(this.splitDiv[0],'display','block'); 
+     
+    } else {
+      setTimeout(() => {
+       this.render.setStyle(this.splitDiv[0],'display','none');
+       
+       
+      }, 500);
+    }
+  }
+  async CreateAccount(){
+    this.loader = true;
+    this.split = false;
+    setTimeout(() => {
+      this.loader = false;
+    }, 1000);
+    let modal = await this.modalController.create({
+      component : RegisterPage
+    })
+    return await modal.present();
+  }
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+  logOut(){
+    this.loader = true
+    this.split = false;
+   
   
-  showProfile(){
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-        this.showProfile1 = true;
-      }else {
-        this.showProfile1 = false;
-      }
-    })
-   }
- 
-   showNotification(){
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-        this.showNotific = true;
-      }else {
-        this.showNotific = false;
-      }
-    })
-   }
+    setTimeout(() => {
+      firebase.auth().signOut().then(user => {
+  
+        this.loader = false;
+  
+       this.presentToast('You are now logged out');
+        
+       
+    
+      }).catch(error => {
+        console.log("Something went wrong");
+        
+      })
+    }, 1000);
+   
+  
+   
+  }
   async Login(){
  
  

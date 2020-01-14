@@ -34,7 +34,7 @@
     "cordova-plugin-androidx": "^1.0.2",
     "cordova-plugin-androidx-adapter": "^1.1.0",
     "cordova-plugin-file": "^6.0.2",
-    "cordova-plugin-file-opener2": "^2.2.1",
+    "cordova-plugin-file-opener2": "2.2.1",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-firebase": "^2.0.5",
     "cordova-plugin-firebasex": "^7.0.1",
@@ -90,9 +90,7 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-file-opener2": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
+      "cordova-plugin-file-opener2": {},
       "cordova-plugin-firebase": {},
       "onesignal-cordova-plugin": {},
       "cordova-plugin-androidx-adapter": {}

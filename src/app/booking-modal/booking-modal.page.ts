@@ -20,9 +20,9 @@ export class BookingModalPage implements OnInit {
     Length : number ;
     Breadth : number;
     
-    describe = true;
+    describe = false;
     describeDiv = document.getElementsByClassName('description');
-    icon = 'ios-arrow-down';
+    icon = 'ios-arrow-up';
     category = "" 
     description = "" 
     image = "" 
