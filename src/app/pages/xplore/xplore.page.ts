@@ -247,9 +247,10 @@ tattoo = {
 
 
     this.loader = true;
+    this.tattooDisplay = !this.tattooDisplay;
     setTimeout(() => {
-      this.loader = false;
-      this.tattooDisplay = !this.tattooDisplay
+      
+      
       if (this.tattooDisplay) {
        
          this.render.setStyle(this.tattooDisplaDiv[0],'display','block'); 
@@ -263,6 +264,7 @@ tattoo = {
          
         }, 500);
       }
+      this.loader = false;
  
     }, 1000);
    

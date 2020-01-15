@@ -1,9 +1,5 @@
 <ion-content>
-  <ion-fab *ngIf="showProfile1" vertical="bottom" horizontal="end" color="secondary" slot="fixed">
-    <ion-fab-button (click)="opnModal()">
-      <ion-icon name="camera"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> 
+ 
 
   <div class="loader" *ngIf="loader">
     <div class="loader-1">
@@ -13,7 +9,7 @@
 
  <div class="tattoo-image animated" *ngIf="tattooDisplay" [ngClass]="{'zoomOut': !tattooDisplay, 'fadeIn': tattooDisplay}">
    <div class="close-btn">
-    <ion-button fill="clear" size="small" (click)="tattooAnimated('')" color="light">
+    <ion-button fill="clear" size="large" (click)="tattooAnimated('')" color="light">
       <ion-icon name="close"></ion-icon>
     </ion-button>
 
@@ -153,7 +149,7 @@
                   <div class="price">
                     <p class="price-tag" color="success">{{tattoo.pricerange | currency: '&#82;'}}</p>
                     <p class="ion-text-center">{{ tattoo.name}}</p>
-                    <p class="describe">{{tattoo.description}}</p> </div>
+                    <p class="describe">{{tattoo.description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque velit impedit beatae dolores ducimus voluptatibus nihil harum delectus blanditiis eum hic, nam veritatis, eaque rem architecto tempora nesciunt eos recusandae?</p> </div>
                     <div class="book-btn">
                       <ion-button expand="block" size="small" color="light" (click)="tattooAnimated(tattoo)" fill="clear"> View to Book </ion-button>
                     </div>

@@ -22,7 +22,9 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-
+ion-header {
+    --background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3));
+}
 
 .main {
     position: absolute;
@@ -127,13 +129,14 @@
     top: 25%;
     left: 10%;
     right: 10%;
-    height: 70%;
+    height: 60%;
     background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,1));
     box-shadow: 0 3px 6px rgba(27, 27, 27, 0.527);
     z-index: 100;
     transition: 500ms;
-    border-radius: 5px;
-
+  /*   border-radius: 5px; */
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 
@@ -142,6 +145,12 @@
 ion-item {
     --background: rgba(0,0,0,0);
 
+}
+
+@media only screen and (max-width: 600px) {
+    .booking::-webkit-scrollbar, .description::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .priceRage{

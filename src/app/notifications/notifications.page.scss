@@ -50,6 +50,7 @@
     box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.116), 0 3px 6px rgba(0, 0, 0, 0.185);
     border-radius: .5em;
     margin-bottom: 5%;
+    justify-content: space-between;
   }
   .profile {
     flex-basis: 30%;
@@ -85,12 +86,9 @@
      }
   }
   .accept-decline {
-        position: absolute;
-        bottom: -15%;
-        width: 100%;
-        left: 0;
-        display: flex;
-        justify-content: space-evenly;
+
+
+      justify-self: flex-end;
 
         .btn {
             height: 3vh;

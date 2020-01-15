@@ -23,11 +23,13 @@
                   <p> {{data.startingDate | date: 'dd/MM/yyyy'}}/p>
                   <p> {{data.endingDate | date: 'dd/MM/yyyy'}}</p>
                 </article>
-                <div class="accept-decline">
-                    <ion-button size="small" fill="solid" color="success" class="btn" (click)="Accept(data, i)">Accept</ion-button>
-                    <ion-button size="small" fill="solid" color="danger" class="btn" (click)="Decline(data, i)">Decline</ion-button>
-                  </div>
+               
 
+              </div>
+              
+              <div class="accept-decline">
+                <ion-button size="small" fill="solid" color="success" class="btn" (click)="Accept(data, i)">Accept</ion-button>
+                <ion-button size="small" fill="solid" color="danger" class="btn" (click)="Decline(data, i)">Decline</ion-button>
               </div>
 
               

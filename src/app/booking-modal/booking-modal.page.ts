@@ -27,7 +27,7 @@ export class BookingModalPage implements OnInit {
     description = "" 
     image = "" 
     priceRange = "" 
-    name = ""
+    name = "";
   
     Cname = "";
     number : any = 0;
@@ -43,6 +43,7 @@ export class BookingModalPage implements OnInit {
   
       ],
     }
+  loader: boolean = false;
         
 
   constructor(public DeliverDataService: DeliverDataService,private fb: FormBuilder, private modalController: ModalController, private render: Renderer2) { 
@@ -64,12 +65,19 @@ export class BookingModalPage implements OnInit {
   
 
   ionViewWillEnter(){
+
+    this.loader = true;
+
+    setTimeout(() => {
+      this.loader = false;
+      this.category = this.DeliverDataService.dataSaved.category ;
+      this.description = this.DeliverDataService.dataSaved.description  ;
+      this.image = this.DeliverDataService.dataSaved.image  ;
+      this.name = this.DeliverDataService.dataSaved.name;
+      this.priceRange = this.DeliverDataService.dataSaved.priceRange  ;
+    }, 1000);
     
-    this.category = this.DeliverDataService.dataSaved.category ;
-    this.description = this.DeliverDataService.dataSaved.description  ;
-    this.image = this.DeliverDataService.dataSaved.image  ;
-    this.name = this.DeliverDataService.dataSaved.name  ;
-    this.priceRange = this.DeliverDataService.dataSaved.priceRange  ;
+  
 
   
     console.log("Data in the booking modal" ,  this.description );
@@ -77,20 +85,25 @@ export class BookingModalPage implements OnInit {
   }
 
   closeDescriptionAnimate() {
-    this.describe = !this.describe
-    if (this.describe) {
-      this.render.setStyle(this.describeDiv[0],'display','block');
-      this.render.setStyle(this.describeDiv[0],'hight','40%');
-       this.render.setStyle(this.describeDiv[0],'overflow','auto');
-      this.icon = 'ios-arrow-down';
-    } else {
-      setTimeout(() => {
-       this.render.setStyle(this.describeDiv[0],'height','10%');
-       this.render.setStyle(this.describeDiv[0],'overflow','hidden');
-       this.icon = 'ios-arrow-up';
-       /* this.render.setStyle(this.describeDiv[0],'display','none'); */
-      }, 500);
-    }
+    this.describe = !this.describe;
+    this.loader = true;
+    setTimeout(() => {
+      if (this.describe) {
+     /*    this.render.setStyle(this.describeDiv[0],'display','block'); */
+        this.render.setStyle(this.describeDiv[0],'height','80%');
+        /*  this.render.setStyle(this.describeDiv[0],'overflow','auto'); */
+        this.icon = 'ios-arrow-down';
+      } else {
+        setTimeout(() => {
+         this.render.setStyle(this.describeDiv[0],'height','5%');
+         /* this.render.setStyle(this.describeDiv[0],'overflow','hidden'); */
+         this.icon = 'ios-arrow-up';
+         /* this.render.setStyle(this.describeDiv[0],'display','none'); */
+        }, 500);
+      }
+      this.loader = false;
+    }, 1000);
+    
     
   }
 

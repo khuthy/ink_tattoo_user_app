@@ -292,6 +292,8 @@ ion-button.explore {
     padding: 1em;
     display: flex;
     flex-direction: column;
+    
+    
 
 
 }
@@ -302,6 +304,7 @@ ion-button.explore {
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin-bottom: 2em;
 
    
 }
@@ -330,9 +333,18 @@ p {
     }
     
 }
-
+ion-item.item {
+    --padding-bottoms: 10px;
+}
 @media only screen and (max-width: 600px) {
+
     .cont-container {
+        flex-direction: column;
+    }
+    .extend {
+        width: 100%;
+    }
+    .wrapper-page {
        display: block;
        overflow-x: hidden;
        overflow-y: auto;
