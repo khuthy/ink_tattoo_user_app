@@ -80,6 +80,14 @@
     
 .upload-tattoo {
     flex-basis: 20%;
+
+
+    .ink {
+        transform: rotate(0deg);
+        font-family: 'Pacifico', cursive !important;
+        color: rgb(0, 0, 0);
+
+    }
 }
 }
 .signin {

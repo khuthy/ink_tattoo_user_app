@@ -231,23 +231,28 @@ tattoo = {
 
   tattooAnimated(tattoo) {
 
-
-    this.tattoos.image = tattoo.image;
-    this.tattoos.price = tattoo.pricerange;
-    this.tattoos.nameTattoo = tattoo.name;
-    this.tattoos.description = tattoo.description
-    this.tattoos.categories = tattoo.categories;
-    
-    
-    this.continue = tattoo;
-
-    
-
-
-
-
     this.loader = true;
     this.tattooDisplay = !this.tattooDisplay;
+  
+    if(tattoo) {
+      
+      this.tattoos.image = tattoo.image;
+      this.tattoos.price = tattoo.pricerange;
+      this.tattoos.nameTattoo = tattoo.name;
+      this.tattoos.description = tattoo.description
+      this.tattoos.categories = tattoo.categories;
+      this.continue = tattoo;
+    }
+
+   
+
+    
+
+
+
+
+   
+    
     setTimeout(() => {
       
       

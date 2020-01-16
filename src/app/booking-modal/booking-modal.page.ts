@@ -108,57 +108,67 @@ export class BookingModalPage implements OnInit {
   }
 
   senBookig(){
+
+    this.loader = true;
+
+
+    setTimeout(() => {
+      if (this.tattooForm.valid ) {
+        this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").doc().set({
+    
+                
+          category : this.category,
+          description : this.description,
+          image : this.image,
+          priceRange :  this.priceRange,
+          tattoName: this.name,
+          breadth : this.Breadth,
+          length : this.Length,
+          email : firebase.auth().currentUser.email,
+          uid : firebase.auth().currentUser.uid,
+          customerName : this.Cname,
+          number : this.number,
+          bookingState : 'waiting',
+          field : "Booking"
+    
+    
+        }).then( async() => {
+    
+          console.log("Sorry no user here");
+          const modal = await this.modalController.create({
+            component: SuccessPagePage
+          });
+          return await  modal.present();
+    
+        })
+    
+        this.db.collection("Requests").doc().set({
+          category : this.category,
+          description : this.description,
+          image : this.image,
+          priceRange :  this.priceRange,
+          tattoName: this.name,
+          breadth : this.Breadth,
+          length : this.Length,
+          email : firebase.auth().currentUser.email,
+          uid : firebase.auth().currentUser.uid,
+          customerName : this.Cname,
+          number : this.number,
+          bookingState : 'waiting',
+          field : "Booking"
+    
+        })
+    
+        this.modalController.dismiss({
+          'dismissed': true
+        });
+      }
+
+      this.loader = false;
+      
+    }, 1000);
  
-    if (this.tattooForm.valid ) {
-    this.db.collection("Bookings").doc(firebase.auth().currentUser.uid).collection("Requests").doc().set({
-
-            
-      category : this.category,
-      description : this.description,
-      image : this.image,
-      priceRange :  this.priceRange,
-      tattoName: this.name,
-      breadth : this.Breadth,
-      length : this.Length,
-      email : firebase.auth().currentUser.email,
-      uid : firebase.auth().currentUser.uid,
-      customerName : this.Cname,
-      number : this.number,
-      bookingState : 'waiting',
-      field : "Booking"
-
-
-    }).then( async() => {
-
-      console.log("Sorry no user here");
-      const modal = await this.modalController.create({
-        component: SuccessPagePage
-      });
-      return await  modal.present();
-
-    })
-
-    this.db.collection("Requests").doc().set({
-      category : this.category,
-      description : this.description,
-      image : this.image,
-      priceRange :  this.priceRange,
-      tattoName: this.name,
-      breadth : this.Breadth,
-      length : this.Length,
-      email : firebase.auth().currentUser.email,
-      uid : firebase.auth().currentUser.uid,
-      customerName : this.Cname,
-      number : this.number,
-      bookingState : 'waiting',
-      field : "Booking"
-
-    })
-
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-  }
+  
 
 
  

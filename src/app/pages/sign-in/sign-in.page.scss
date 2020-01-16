@@ -18,6 +18,12 @@
     
 }
 
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .upload-tattoo {
     flex: 1;
     display: flex;
@@ -42,6 +48,8 @@
     }
      
 }
+
+
 .btn-upload-tattoo {
     height: 6vw;
     width: 6vw;
@@ -64,6 +72,20 @@
     transform: translate(0, -40%);
     
 } 
+
+@media only screen and (max-width: 600px) {
+    .logo {
+        display: none;
+
+    }
+    .upload-tattoo {
+        flex-basis: 20%;
+    }
+
+    ion-button {
+        width: 100%;
+    }
+}
 
 @media only screen and (max-width: 768px) {
     .main {

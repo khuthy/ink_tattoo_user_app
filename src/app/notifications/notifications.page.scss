@@ -25,9 +25,18 @@
     position: relative;
     /* display: flex;
     flex-direction: column; */
-    background: rgba(255, 255, 255, 0.826);
+  
     border-radius: 1em 1em 0 0;
     
+  }
+
+  .messages {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
 
   .cards {
@@ -48,7 +57,7 @@
     display: flex;
     flex-direction: row;
     box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.116), 0 3px 6px rgba(0, 0, 0, 0.185);
-    border-radius: .5em;
+    /* border-radius: .5em; */
     margin-bottom: 5%;
     justify-content: space-between;
   }
@@ -56,7 +65,7 @@
     flex-basis: 30%;
     height: 100%;
     overflow: hidden;
-    border-radius: .5em;
+   /*  border-radius: .5em; */
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
     img {
       height: 100%;
@@ -70,7 +79,7 @@
     padding: .8em;
     position: relative;
 
-    flex: 1;
+   flex-basis: 60%;
      h4, p {
        font-size: 80%;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -87,14 +96,17 @@
   }
   .accept-decline {
 
-
+      
       justify-self: flex-end;
-
-        .btn {
-            height: 3vh;
-            text-transform: lowercase;
-            width: auto;
-        }
+      flex-basis: 10%;
+      display: flex;
+      flex-direction: column;
+      background: rgba(0, 0, 0, 0.11);
+         
+      .btn {
+        flex: 1;
+      }
+      
        
   }
 
@@ -115,11 +127,12 @@
   .sessions {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       
   }
 @media only screen and (max-width: 600px) {
     .card {
-        width: 90%;
+        width: 100%;
     }
     .call-btn {
         height: 6vh;

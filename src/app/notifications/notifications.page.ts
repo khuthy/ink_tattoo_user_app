@@ -1,6 +1,6 @@
 import { ModalController, AlertController } from '@ionic/angular';
 import { DeliverDataService } from './../deliver-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as firebase from 'firebase';
 
 
@@ -16,10 +16,12 @@ export class NotificationsPage implements OnInit {
   array = [];
   showMessage : boolean;
   message = "";
-
+  article: boolean = false;
+  articleDiv: any = document.getElementsByClassName('article');
   days = "";
+  icon = 'ios-arrow-down';
 
-  constructor(public DeliverDataService : DeliverDataService,public AlertController : AlertController, private modalController: ModalController ) {
+  constructor(public DeliverDataService : DeliverDataService,public AlertController : AlertController, private modalController: ModalController, private render: Renderer2 ) {
     // this.array = [];
     // this.array = this.DeliverDataService.AcceptedData;
     console.log("Data in the Notifications ", this.array);
@@ -56,6 +58,24 @@ export class NotificationsPage implements OnInit {
       })
     }
 
+  }
+
+  animate() {
+    this.article = !this.article;
+    let card = document.getElementsByClassName('card');
+    if(this.article) {
+      this.icon = 'ios-arrow-up';
+      this.render.setStyle(this.articleDiv[0], 'display', 'block');
+      this.render.setStyle(card[0], 'height', '25%');
+      this.render.setStyle(card[0], 'transition', '500ms');
+    }else {
+      setTimeout(() => {
+        this.icon = 'ios-arrow-down';
+        this.render.setStyle(this.articleDiv[0], 'display', 'none');
+        this.render.setStyle(card[0], 'height', '20%');
+        this.render.setStyle(card[0], 'transition', '500ms');
+      }, 500);
+    }
   }
 
   async Decline(data, i){
