@@ -77,7 +77,11 @@ export class BookingModalPage implements OnInit {
       this.priceRange = this.DeliverDataService.dataSaved.priceRange  ;
     }, 1000);
     
-  
+    this.category = this.DeliverDataService.dataSaved.category ;
+    this.description = this.DeliverDataService.dataSaved.description  ;
+    this.image = this.DeliverDataService.dataSaved.image  ;
+    this.name = this.DeliverDataService.dataSaved.name  ;
+    this.priceRange = this.DeliverDataService.dataSaved.pricerange  ;
 
   
     console.log("Data in the booking modal" ,  this.description );

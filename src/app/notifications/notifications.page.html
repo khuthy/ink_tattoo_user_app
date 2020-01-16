@@ -22,7 +22,7 @@
           </div>
           <div class="info-to-card">
               <h4>{{data.price | currency : '&#82;'}}</h4>
-             <article class="sessions"> <p> 12 Days Sessions</p> <ion-button fill="clear" color="dark" (click)="animate()" size="small"><ion-icon [name]="icon"></ion-icon></ion-button></article>
+             <article class="sessions"> <p> {{data.days}} Days Sessions</p> <ion-button fill="clear" color="dark" (click)="animate(i)" size="small"><ion-icon [name]="icon"></ion-icon></ion-button></article>
               <article class="article animated" [ngClass]="{'zoomIn': article, 'zoomOut': !article}">
                 <p>Start Date: <strong>{{data.startingDate | date: 'dd/MM/yyyy'}}</strong> </p>
                 <p>End Date: <strong>{{data.endingDate | date: 'dd/MM/yyyy'}}</strong></p>

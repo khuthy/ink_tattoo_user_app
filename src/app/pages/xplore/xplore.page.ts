@@ -43,7 +43,8 @@ menuDiv = document.getElementsByClassName('wraper-list');
   
 tattoo = {
     name: '',
-    pricerange: '',
+    StartingpriceRange: '',
+    EndingpriceRange: '',
     description: '',
     image: '',
     categories:''
@@ -75,7 +76,8 @@ tattoo = {
   tattoos: any = {
     image: '',
     description: '',
-    price: '',
+    StartingpriceRange: '',
+    EndingpriceRange: '',
     nameTattoo: '',
     categories: ''
   }
@@ -88,10 +90,6 @@ tattoo = {
 
     this.respnses = this.DeliverDataService.AcceptedData;
    
-   
-
- 
-
    }
 
 
@@ -168,17 +166,16 @@ tattoo = {
             this.email=firebase.auth().currentUser.email;
            }
            
-
-          
-   
            this.db.collection("Bookings").onSnapshot(data => {         
              data.forEach(item => {
                if(item.exists){
   
-                this.ShowName=[];
+                this.ShowName = [];
                  if(item.data().email === this.email){
                    this.DeliverDataService.name = item.data().name;
                    this.name = item.data().name
+                   console.log("Your name is here ", item.data().name);
+                   
                    this.ShowName.push(item.data());
                    console.log("ShowName",item.data().name);
                  }
@@ -475,6 +472,10 @@ logOut(){
 
 
  async Booking(tattoo){
+
+  console.log("pppppppp ", tattoo);
+  
+
     if(firebase.auth().currentUser){
 
       this.showProfile1 = true;
@@ -494,9 +495,9 @@ logOut(){
       this.DeliverDataService.dataSaved.description = tattoo.description;
       this.DeliverDataService.dataSaved.image = tattoo.image;
       this.DeliverDataService.dataSaved.name = tattoo.name;
-      this.DeliverDataService.dataSaved.priceRange = tattoo.pricerange;
-
-
+      this.DeliverDataService.dataSaved.pricerange = tattoo.pricerange;
+     
+     this.tattooDisplay = false;
    
 
       console.log("Your data in the service",  this.DeliverDataService.dataSaved);
@@ -504,7 +505,10 @@ logOut(){
         component: BookingModalPage
       });
       return await  modal.present();
+
+
     }else{
+      this.tattooDisplay = false;
       console.log("Sorry no user here");
       const modal = await this.modalController.create({
         component: RegisterPage
@@ -512,6 +516,8 @@ logOut(){
       return await  modal.present();
       
     }
+
+
     
   }
 
