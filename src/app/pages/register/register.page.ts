@@ -1,3 +1,4 @@
+import { BookingModalPage } from './../../booking-modal/booking-modal.page';
 import { SignInPage } from './../sign-in/sign-in.page';
 import { DeliverDataService } from '../../deliver-data.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import * as firebase from 'firebase';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ViewController } from '@ionic/core';
 import { ModalController,AlertController, ActionSheetController } from '@ionic/angular';
+
 
 
 
@@ -59,7 +61,7 @@ export class RegisterPage implements OnInit {
   }
   
 
-  register(){
+ async register(){
 
 
     this.loader = true;
@@ -95,15 +97,26 @@ export class RegisterPage implements OnInit {
 
 console.log("1111111111111111111111", firebase.auth().currentUser.email);
 
-this.dismiss()
-           this.modalController.dismiss({
-            'dismissed': true
-          });
+
     });
+
   }
+
+  
 
   this.loader = false;
    }, 1000);
+
+   this.dismiss()
+   this.modalController.dismiss({
+    'dismissed': true
+  });
+
+  
+   const modal = await this.modalController.create({
+    component: BookingModalPage
+  });
+  return await  modal.present();
 
   }
 

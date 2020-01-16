@@ -12,6 +12,7 @@
 <ion-content padding>
 <main class="container">
     <div class="cards">
+      <p *ngIf="array.length == 0 ">You don't have notifications</p>
       <div class="card" *ngFor="let data of array; let i = index">
           <div class="profile">
               <img src="{{data.image}}" alt="">

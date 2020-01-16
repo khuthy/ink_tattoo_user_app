@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase';
-import { firebaseConfig } from 'src/environments/environment';
+import { firebaseConfig } from '../environments/environment';
 import { AlertController } from '@ionic/angular';
 
 
@@ -30,13 +30,6 @@ firebase_id = '396095430599';
   ) {
     this.initializeApp();
     firebase.initializeApp(firebaseConfig);
-
-
-
- 
-    
-
-
   }
 
   initializeApp() {
