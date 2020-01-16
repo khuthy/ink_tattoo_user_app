@@ -74,7 +74,7 @@ export class BookingModalPage implements OnInit {
       this.description = this.DeliverDataService.dataSaved.description  ;
       this.image = this.DeliverDataService.dataSaved.image  ;
       this.name = this.DeliverDataService.dataSaved.name;
-      this.priceRange = this.DeliverDataService.dataSaved.priceRange  ;
+      this.priceRange = this.DeliverDataService.dataSaved.pricerange  ;
     }, 1000);
     
     this.category = this.DeliverDataService.dataSaved.category ;
