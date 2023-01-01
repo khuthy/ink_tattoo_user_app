@@ -42,12 +42,12 @@
     "onesignal-cordova-plugin": "^2.8.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "webpack": "^4.41.5",
+    "webpack": "^5.75.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.801.2",
-    "@angular-devkit/build-angular": "^0.803.22",
+    "@angular-devkit/build-angular": "^15.0.4",
     "@angular-devkit/core": "~8.1.2",
     "@angular-devkit/schematics": "~8.1.2",
     "@angular/cli": "~8.1.2",
